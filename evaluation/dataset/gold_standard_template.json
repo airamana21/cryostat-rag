@@ -1,0 +1,39 @@
+{
+  "_instructions": [
+    "This is a template for creating a gold standard evaluation dataset.",
+    "Fill in Q&A pairs with questions you know the correct answer to.",
+    "human_scores: rate each dimension 1-5 based on the reference_answer quality.",
+    "After creating entries, rename this file to gold_standard.json.",
+    "The 'context_docs' field can be left empty — it will be populated during evaluation."
+  ],
+  "questions": [
+    {
+      "id": "gs_001",
+      "question": "REPLACE: Your specific question about the cryostat",
+      "reference_answer": "REPLACE: The correct, complete answer",
+      "category": "factual",
+      "human_scores": {
+        "factual_accuracy": 5,
+        "completeness": 5,
+        "clarity": 5,
+        "source_grounding": 5
+      },
+      "source_chunks": [],
+      "notes": "Optional notes about this Q&A pair"
+    },
+    {
+      "id": "gs_002",
+      "question": "REPLACE: A procedural question (how to do something)",
+      "reference_answer": "REPLACE: Step-by-step answer",
+      "category": "procedural",
+      "human_scores": {
+        "factual_accuracy": 5,
+        "completeness": 5,
+        "clarity": 5,
+        "source_grounding": 5
+      },
+      "source_chunks": [],
+      "notes": ""
+    }
+  ]
+}

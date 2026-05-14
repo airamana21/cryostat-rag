@@ -13,9 +13,16 @@ import fitz  # PyMuPDF for image detection
 
 # community imports to avoid deprecation warnings
 from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.retrievers import BM25Retriever
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.vectorstores.utils import filter_complex_metadata
+
+try:
+    from sentence_transformers import CrossEncoder
+    CROSS_ENCODER_AVAILABLE = True
+except ImportError:
+    CROSS_ENCODER_AVAILABLE = False
 
 from langchain.embeddings.base import Embeddings
 from langchain.llms.base import LLM
@@ -32,16 +39,22 @@ LOCATION = os.getenv("GCP_LOCATION", "us-central1")
 vertexai.init(project=PROJECT_ID, location=LOCATION)
 
 # ─── 2. Chunking parameters ─────────────────────────────────────────────────
-FINE_CHUNK_SIZE      = int(os.getenv("CHUNK_SIZE", "150"))
-FINE_CHUNK_OVERLAP   = int(os.getenv("CHUNK_OVERLAP", "50"))
-COARSE_CHUNK_SIZE    = int(os.getenv("COARSE_CHUNK_SIZE", "1200"))
-COARSE_CHUNK_OVERLAP = int(os.getenv("COARSE_CHUNK_OVERLAP", "200"))
+FINE_CHUNK_SIZE      = int(os.getenv("CHUNK_SIZE", "600"))
+FINE_CHUNK_OVERLAP   = int(os.getenv("CHUNK_OVERLAP", "100"))
+COARSE_CHUNK_SIZE    = int(os.getenv("COARSE_CHUNK_SIZE", "3000"))
+COARSE_CHUNK_OVERLAP = int(os.getenv("COARSE_CHUNK_OVERLAP", "400"))
 SEPARATORS           = ["\n\n", "\n", " ", ""]
 CONTEXT_WINDOW_SIZE  = 3  # Number of previous queries to keep chunks for
 
 # Context expansion parameters
 EXPAND_CONTEXT_BEFORE = int(os.getenv("EXPAND_CONTEXT_BEFORE", "1"))
 EXPAND_CONTEXT_AFTER = int(os.getenv("EXPAND_CONTEXT_AFTER", "2"))
+
+# Cross-encoder reranking
+CROSS_ENCODER_MODEL = os.getenv("CROSS_ENCODER_MODEL", "mixedbread-ai/mxbai-rerank-base-v1")
+USE_RERANKING = os.getenv("USE_RERANKING", "true").lower() == "true"
+RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "8"))
+EMBED_BATCH_SIZE = int(os.getenv("EMBED_BATCH_SIZE", "5"))
 
 # GCS settings
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "attocube-rag-pdfs")
@@ -53,11 +66,26 @@ VECTORSTORE_DIR = os.path.join(VECTORSTORE_BASE_DIR, "vectorstore")
 PDF_CACHE_DIR = os.getenv("PDF_CACHE_DIR", os.path.join(VECTORSTORE_BASE_DIR, "pdfs"))
 MANIFEST_PATH = os.path.join(VECTORSTORE_DIR, "manifest.json")
 IMAGE_STORAGE_PATH = os.path.join(VECTORSTORE_DIR, "images.pkl")
+BM25_DOCS_PATH = os.path.join(VECTORSTORE_DIR, "bm25_docs.pkl")
 VECTORSTORE_GCS_BUCKET = os.getenv("VECTORSTORE_GCS_BUCKET")
 VECTORSTORE_GCS_PREFIX = os.getenv("VECTORSTORE_GCS_PREFIX", "vectorstore/")
 
 # Global image storage to avoid ChromaDB metadata issues
 GLOBAL_IMAGE_STORAGE = {}
+
+# Global BM25 document store for hybrid retrieval
+GLOBAL_BM25_DOCS: List[Document] = []
+
+# Cross-encoder singleton (lazy-loaded on first use)
+_cross_encoder_instance = None
+
+def get_cross_encoder():
+    global _cross_encoder_instance
+    if _cross_encoder_instance is None and CROSS_ENCODER_AVAILABLE and USE_RERANKING:
+        print(f"Loading cross-encoder model: {CROSS_ENCODER_MODEL}")
+        _cross_encoder_instance = CrossEncoder(CROSS_ENCODER_MODEL)
+        print("Cross-encoder model loaded.")
+    return _cross_encoder_instance
 
 # ─── 3. LLM wrapper for Vertex AI Gemini ────────────────────────────────────
 class VertexAIGeminiLLM(LLM):
@@ -95,17 +123,40 @@ class VertexAIEmbeddings(Embeddings):
         self.model = TextEmbeddingModel.from_pretrained(self.model_name)
     
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        import time
         embeddings = []
-        batch_size = 20
-        for i in range(0, len(texts), batch_size):
-            batch = texts[i : i + batch_size]
-            batch_embeddings = self.model.get_embeddings(batch)
-            embeddings.extend([emb.values for emb in batch_embeddings])
+        for i in range(0, len(texts), EMBED_BATCH_SIZE):
+            batch = texts[i : i + EMBED_BATCH_SIZE]
+            for attempt in range(5):
+                try:
+                    batch_embeddings = self.model.get_embeddings(batch)
+                    embeddings.extend([emb.values for emb in batch_embeddings])
+                    break
+                except Exception as e:
+                    if "ResourceExhausted" in type(e).__name__ or "429" in str(e):
+                        wait = (2 ** attempt) + 1
+                        print(f"Embedding rate-limited (attempt {attempt+1}/5), retrying in {wait}s...")
+                        time.sleep(wait)
+                    else:
+                        raise
+            else:
+                raise RuntimeError(f"Embedding batch {i // EMBED_BATCH_SIZE} failed after 5 retries")
+            time.sleep(0.5)
         return embeddings
-    
+
     def embed_query(self, text: str) -> List[float]:
-        embeddings = self.model.get_embeddings([text])
-        return embeddings[0].values
+        import time
+        for attempt in range(5):
+            try:
+                return self.model.get_embeddings([text])[0].values
+            except Exception as e:
+                if "ResourceExhausted" in type(e).__name__ or "429" in str(e):
+                    wait = (2 ** attempt) + 1
+                    print(f"Embedding rate-limited (attempt {attempt+1}/5), retrying in {wait}s...")
+                    time.sleep(wait)
+                else:
+                    raise
+        raise RuntimeError("embed_query failed after 5 retries")
 
 # ─── 5. GCS PDF Loading ──────────────────────────────────────────────────────
 def download_pdfs_from_gcs(bucket_name: str, prefix: str, local_dir: str = "pdfs"):
@@ -232,6 +283,22 @@ def load_image_storage():
         data = pickle.load(f)
         GLOBAL_IMAGE_STORAGE.clear()
         GLOBAL_IMAGE_STORAGE.update(data)
+
+def save_bm25_docs(docs: List[Document]):
+    global GLOBAL_BM25_DOCS
+    _ensure_dir(VECTORSTORE_DIR)
+    with open(BM25_DOCS_PATH, "wb") as f:
+        pickle.dump(docs, f)
+    GLOBAL_BM25_DOCS = docs  # Make available immediately for retriever initialization
+    print(f"Saved {len(docs)} docs for BM25 index.")
+
+def load_bm25_docs():
+    global GLOBAL_BM25_DOCS
+    if not os.path.exists(BM25_DOCS_PATH):
+        return
+    with open(BM25_DOCS_PATH, "rb") as f:
+        GLOBAL_BM25_DOCS = pickle.load(f)
+    print(f"Loaded {len(GLOBAL_BM25_DOCS)} docs for BM25 index.")
 
 def _download_prefix(bucket_name: str, prefix: str, local_dir: str):
     client = storage.Client()
@@ -383,6 +450,7 @@ def load_vectorstores_if_present() -> Tuple[Optional[Chroma], Optional[Chroma], 
     fine_db = Chroma(persist_directory=CHROMA_FINE_DIR, embedding_function=emb)
     coarse_db = Chroma(persist_directory=CHROMA_COARSE_DIR, embedding_function=emb)
     load_image_storage()
+    load_bm25_docs()
     return fine_db, coarse_db, True
 
 def _clear_directory(folder: str):
@@ -409,6 +477,7 @@ def build_vectorstores_from_gcs(status_callback=None) -> Tuple[Chroma, Chroma, D
     fine_db, coarse_db = get_vectorstores(fine_docs, coarse_docs)
 
     save_image_storage()
+    save_bm25_docs(fine_docs)
     manifest = compute_manifest_from_gcs(GCS_BUCKET_NAME, GCS_PDF_PREFIX, status_callback=status_callback)
     save_manifest(manifest)
     sync_vectorstore_to_gcs()
@@ -441,8 +510,41 @@ class ContextExpandingHybridRetriever:
     def __init__(self, fine_db, coarse_db):
         self.fine_db = fine_db
         self.coarse_db = coarse_db
-        self.fine_retriever = fine_db.as_retriever(search_kwargs={"k": 10})
-        self.coarse_retriever = coarse_db.as_retriever(search_kwargs={"k": 5})
+        self.fine_retriever = fine_db.as_retriever(search_kwargs={"k": 12})
+        self.coarse_retriever = coarse_db.as_retriever(search_kwargs={"k": 6})
+        # BM25 index for hybrid retrieval
+        if GLOBAL_BM25_DOCS:
+            self.bm25_retriever = BM25Retriever.from_documents(GLOBAL_BM25_DOCS, k=12)
+            print(f"BM25 retriever initialized with {len(GLOBAL_BM25_DOCS)} documents.")
+        else:
+            self.bm25_retriever = None
+            print("BM25 retriever not initialized (no docs in GLOBAL_BM25_DOCS).")
+
+    def _reciprocal_rank_fusion(self, results_lists: List[List[Document]], k: int = 60) -> List[Document]:
+        """Merge multiple ranked lists using Reciprocal Rank Fusion (RRF)."""
+        scores: Dict[str, Dict] = {}
+        for results in results_lists:
+            for rank, doc in enumerate(results):
+                key = doc.page_content[:120]
+                if key not in scores:
+                    scores[key] = {"score": 0.0, "doc": doc}
+                scores[key]["score"] += 1.0 / (k + rank + 1)
+        sorted_items = sorted(scores.values(), key=lambda x: x["score"], reverse=True)
+        return [item["doc"] for item in sorted_items]
+
+    def rerank(self, query: str, docs: List[Document], top_n: int = None) -> List[Document]:
+        """Rerank docs with cross-encoder; falls back gracefully if unavailable."""
+        if top_n is None:
+            top_n = RERANK_TOP_N
+        ce = get_cross_encoder()
+        if ce is None or len(docs) <= top_n:
+            return docs[:top_n] if len(docs) > top_n else docs
+        pairs = [(query, doc.page_content) for doc in docs]
+        scores = ce.predict(pairs)
+        ranked = sorted(zip(scores, docs), key=lambda x: x[0], reverse=True)
+        # Drop chunks the cross-encoder considers irrelevant; always keep at least one
+        filtered = [(s, d) for s, d in ranked if s > -5.0] or [ranked[0]]
+        return [doc for _, doc in filtered[:top_n]]
     
     def expand_context(self, docs: List[Document], db: Chroma, before: int = 1, after: int = 2) -> List[Document]:
         """Expand context by including neighboring chunks"""
@@ -501,35 +603,57 @@ class ContextExpandingHybridRetriever:
         return None
     
     def get_relevant_documents(self, query: str) -> List[Document]:
-        """Main retrieval method with context expansion"""
+        """Main retrieval method with BM25+dense hybrid retrieval and context expansion.
+
+        BM25 hybrid is applied only for factual queries (non-procedural).
+        Procedural queries use coarse-only dense retrieval since BM25 is indexed
+        from fine chunks and cannot be correctly expanded against the coarse DB.
+        """
         lower_q = query.lower()
-        
-        procedural = any(k in lower_q for k in ["how", "procedure", "steps", "process", "install", "setup"])
-        
+
+        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
+                       "how should ", "how would ", "how can ", "how could ", "how must ")
+        procedural = (
+            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
+            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
+        )
+
         if procedural:
+            # Coarse dense retrieval only — BM25 (fine-indexed) would mismatch coarse expansion
             docs = self.coarse_retriever.get_relevant_documents(query)
             expanded = self.expand_context(
-                docs, 
-                self.coarse_db, 
-                before=EXPAND_CONTEXT_BEFORE, 
+                docs,
+                self.coarse_db,
+                before=EXPAND_CONTEXT_BEFORE,
                 after=EXPAND_CONTEXT_AFTER + 1
             )
         else:
-            docs = self.fine_retriever.get_relevant_documents(query)
+            # Factual: BM25+dense hybrid over fine DB
+            dense_docs = self.fine_retriever.get_relevant_documents(query)
+            if self.bm25_retriever:
+                bm25_docs = self.bm25_retriever.get_relevant_documents(query)
+                fused = self._reciprocal_rank_fusion([dense_docs, bm25_docs])
+            else:
+                fused = dense_docs
             expanded = self.expand_context(
-                docs, 
-                self.fine_db, 
-                before=EXPAND_CONTEXT_BEFORE, 
+                fused,
+                self.fine_db,
+                before=EXPAND_CONTEXT_BEFORE,
                 after=EXPAND_CONTEXT_AFTER
             )
-        
+
         return expanded
     
     def get_relevant_documents_by_type(self, query: str, doc_type: str = None) -> List[Document]:
         """Retrieval method with optional document type filtering"""
         lower_q = query.lower()
         
-        procedural = any(k in lower_q for k in ["how", "procedure", "steps", "process", "install", "setup"])
+        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
+                       "how should ", "how would ", "how can ", "how could ", "how must ")
+        procedural = (
+            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
+            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
+        )
         
         if procedural:
             if doc_type:
@@ -559,23 +683,32 @@ class ContextExpandingHybridRetriever:
         return expanded
     
     def get_relevant_documents_with_expansion(self, query: str, before: int = None, after: int = None) -> List[Document]:
-        """Main retrieval method with custom context expansion parameters"""
+        """Retrieval with custom context expansion. BM25 hybrid applied for factual queries only."""
         if before is None:
             before = EXPAND_CONTEXT_BEFORE
         if after is None:
             after = EXPAND_CONTEXT_AFTER
-            
+
         lower_q = query.lower()
-        
-        procedural = any(k in lower_q for k in ["how", "procedure", "steps", "process", "install", "setup"])
-        
+        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
+                       "how should ", "how would ", "how can ", "how could ", "how must ")
+        procedural = (
+            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
+            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
+        )
+
         if procedural:
             docs = self.coarse_retriever.get_relevant_documents(query)
             expanded = self.expand_context(docs, self.coarse_db, before=before, after=after + 1)
         else:
-            docs = self.fine_retriever.get_relevant_documents(query)
-            expanded = self.expand_context(docs, self.fine_db, before=before, after=after)
-        
+            dense_docs = self.fine_retriever.get_relevant_documents(query)
+            if self.bm25_retriever:
+                bm25_docs = self.bm25_retriever.get_relevant_documents(query)
+                fused = self._reciprocal_rank_fusion([dense_docs, bm25_docs])
+            else:
+                fused = dense_docs
+            expanded = self.expand_context(fused, self.fine_db, before=before, after=after)
+
         return expanded
     
     def get_relevant_documents_by_type_with_expansion(self, query: str, doc_type: str = None, before: int = None, after: int = None) -> List[Document]:
@@ -587,7 +720,12 @@ class ContextExpandingHybridRetriever:
             
         lower_q = query.lower()
         
-        procedural = any(k in lower_q for k in ["how", "procedure", "steps", "process", "install", "setup"])
+        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
+                       "how should ", "how would ", "how can ", "how could ", "how must ")
+        procedural = (
+            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
+            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
+        )
         
         if procedural:
             if doc_type:
@@ -680,14 +818,40 @@ class ConversationHistory:
         self.chunk_history = []
 
 def is_follow_up_query(query: str) -> bool:
-    follow_up_phrases = [
-        "tell me more", "more about", "what else", "anything else",
-        "more details", "more information", "explain that",
-        "elaborate", "go on", "continue", "what about",
-        "how about", "and", "also", "furthermore", "additionally"
-    ]
     lower_q = query.lower().strip()
-    return any(phrase in lower_q for phrase in follow_up_phrases) or len(lower_q.split()) <= 3
+    words = lower_q.split()
+
+    # Domain-specific terms that strongly indicate a standalone question
+    _DOMAIN_TERMS = {
+        "attodry", "anc300", "anc", "uhd", "flex", "magnet", "compressor",
+        "temperature", "pressure", "voltage", "current", "sample", "stage",
+        "positioner", "controller", "valve", "cryostat", "helium", "nitrogen",
+        "cooldown", "warmup", "vacuum", "sensor", "heater", "pid",
+    }
+
+    # Explicit continuation phrases — high confidence follow-up regardless of length
+    _EXPLICIT = [
+        "tell me more", "what else", "anything else", "more details",
+        "explain that", "explain this", "elaborate", "go on", "continue",
+        "can you elaborate", "can you clarify", "what did you mean",
+        "clarify that", "clarify this", "expand on that", "expand on this",
+        "what does that mean", "what does this mean",
+    ]
+    if any(phrase in lower_q for phrase in _EXPLICIT):
+        return True
+
+    # Very short query (≤3 words) with no domain term → likely contextual
+    if len(words) <= 3 and not any(t in lower_q for t in _DOMAIN_TERMS):
+        return True
+
+    # Short queries (≤8 words) that open with or contain an unresolved pronoun
+    # and carry no domain term to self-resolve the reference
+    _PRONOUNS = ("it ", "that ", "this ", "they ", "them ", "those ", "its ")
+    if len(words) <= 8 and not any(t in lower_q for t in _DOMAIN_TERMS):
+        if any(lower_q.startswith(p) or f" {p}" in lower_q for p in _PRONOUNS):
+            return True
+
+    return False
 
 def needs_clarification(query: str) -> bool:
     vague_queries = [
@@ -867,11 +1031,17 @@ Reformulated question (be specific and include context from the conversation):""
     print(f"DEBUG: Is follow-up query: {is_followup}")
     print(f"DEBUG: Doc type filter: {doc_type_filter}")
     print(f"DEBUG: Context expansion - Before: {EXPAND_CONTEXT_BEFORE + (1 if is_followup else 0)}, After: {EXPAND_CONTEXT_AFTER + (1 if is_followup else 0)}")
-    print(f"DEBUG: Retrieved {len(docs)} documents")
+    print(f"DEBUG: Retrieved {len(docs)} documents before reranking")
+
+    # Cross-encoder reranking: score all candidates and keep top-N most relevant
+    if hasattr(retriever, "rerank"):
+        docs = retriever.rerank(effective_query, docs)
+        print(f"DEBUG: {len(docs)} documents after reranking")
+
     for i, doc in enumerate(docs[:3]):  # Show first 3 docs
         print(f"DEBUG: Doc {i+1} - Source: {doc.metadata.get('source')}, Page: {doc.metadata.get('page')}")
         print(f"DEBUG: Doc {i+1} - Content preview: {doc.page_content[:100]}...")
-    
+
     conversation_history.add_chunks_to_history(effective_query, docs)
     
     # Get previous chunks if this is a follow-up query
@@ -944,16 +1114,24 @@ Reformulated question (be specific and include context from the conversation):""
         print(f"DEBUG: Context contains data from {len(docs)} documents")
     
     # Create prompt template without f-string formatting to preserve template variables
-    system_message = """You are a helpful assistant for answering questions about documents. 
-Use the following pieces of retrieved context to answer the question. 
-If relevant, you may also reference the previous context chunks.
+    system_message = """You are an expert technical assistant for the attoDRY cryostat system and related laboratory instruments (attoDRY2100, ANC300 positioners, FlexPositioners, magnet power supplies, and associated equipment).
 
-The documents are classified as either 'email' (files starting with 'UHD') or 'manual' (all other files).
-When referencing sources, please mention the document type when relevant.
+Your knowledge comes exclusively from the retrieved context below — a curated set of equipment manuals, specification sheets, and technical support communications.
 
-Current Context: {context}
+Rules:
+- Be concise. Match your answer length to what the question requires — a single factual question warrants a short, direct answer.
+- If the answer requires multiple steps, list them clearly in order.
+- When you reference information, name the source document if it is identifiable from the context (e.g., "According to the attoDRY2100 Manual..."). Do not fabricate page numbers or section references that do not appear verbatim in the retrieved text.
+- If information comes from multiple sources, synthesize it and note each source document.
+- If the retrieved context does not contain enough information to answer fully, say so explicitly rather than guessing.
+- For questions about email communications (documents starting with "UHD"), summarize the relevant technical content from the retrieved text.
+- Always use the retrieved context as your source of truth. Do not rely on any information not present in the context, even if it seems like common knowledge. If the context does not contain the answer, claim ignorance and say you don't know.
 
-Previous Context (if relevant): {previous_context}"""
+Current Context:
+{context}
+
+Previous Context (if relevant):
+{previous_context}"""
     
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_message),

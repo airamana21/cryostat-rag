@@ -1,0 +1,3294 @@
+[
+  {
+    "id": "factual_000",
+    "question": "What is the typical repeatability of step sizes for the accuracy of movement?",
+    "reference_answer": "5 % over full range",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1169,
+        "page": 55,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_001",
+    "question": "What is the title of section 6.1.8?",
+    "reference_answer": "\"Information\" Screen",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 379,
+        "page": 35,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_002",
+    "question": "What liquid was refilled according to the text?",
+    "reference_answer": "liquid nitrogen",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 1,
+        "page": 1,
+        "source": "Attocube past issues.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_003",
+    "question": "What is the code associated with 'Fischer 1 \u2013 7'?",
+    "reference_answer": "Sx+",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 211,
+        "page": 19,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_004",
+    "question": "Before what specific month and year were some other major issues present?",
+    "reference_answer": "January 2024",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 131,
+        "page": 8,
+        "source": "Attocube past issues.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_005",
+    "question": "What is the weight of the cryogenic equipment?",
+    "reference_answer": "19 g",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 938,
+        "page": 44,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_006",
+    "question": "What standard does the *ESE? command operate per?",
+    "reference_answer": "IEEE Std 488.2-1992",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 715,
+        "page": 57,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_007",
+    "question": "What is the function of the ANC300_WaitForStep.vi?",
+    "reference_answer": "This sub-VI waits for the end of a stepping command on a given axis.",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 822,
+        "page": 57,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_008",
+    "question": "What type of cable is needed within the vacuum chamber?",
+    "reference_answer": "an AVC/RES cable",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 425,
+        "page": 22,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_009",
+    "question": "What does Figure 3 illustrate?",
+    "reference_answer": "Hysteresis curves of different ANSxy100 scanners",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 162,
+        "page": 9,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_010",
+    "question": "What is the main intended use for the output trigger of the output switches?",
+    "reference_answer": "LUA IV.2.d",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 830,
+        "page": 58,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_011",
+    "question": "What is the name of the company that holds the copyright?",
+    "reference_answer": "attocube systems AG",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 152,
+        "page": 14,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_012",
+    "question": "What is the function of the 'SLIM Remote' command?",
+    "reference_answer": "Set current limit for selected shim (shim option only)",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 533,
+        "page": 45,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_013",
+    "question": "What is the maximum temperature of the label?",
+    "reference_answer": "94\u00b0C (200\u00b0F)",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 174,
+        "page": 12,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_014",
+    "question": "What is the maximum drive velocity at 300 K?",
+    "reference_answer": "4.5 mm/s",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1127,
+        "page": 53,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_015",
+    "question": "What EC standard is mentioned in the text?",
+    "reference_answer": "EC 664",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 78,
+        "page": 6,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_016",
+    "question": "Where can one find the cool down time for an unloaded cold head with no additional components?",
+    "reference_answer": "Appendix A",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 716,
+        "page": 54,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_017",
+    "question": "How are the high current output terminals labeled?",
+    "reference_answer": "I(+) and I( -)",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 205,
+        "page": 13,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_018",
+    "question": "What is the maximum AC input voltage range?",
+    "reference_answer": "max \u00b15 V AC",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_5_ANC300-plug-in-modules.pdf",
+        "chunk_index": 18,
+        "page": 1,
+        "source": "07_Specs_5_ANC300-plug-in-modules.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_019",
+    "question": "Who is the primary recipient of the email?",
+    "reference_answer": "senlin.xia@attocube.com",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 92,
+        "page": 12,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "factual_020",
+    "question": "What is the connector type specified?",
+    "reference_answer": "14-pole connector",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1306,
+        "page": 62,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_021",
+    "question": "What should the Persistent Mode Current be set to?",
+    "reference_answer": "0.0000A",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 226,
+        "page": 15,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_022",
+    "question": "What type of cable is used for the VTI connection?",
+    "reference_answer": "blue cable with 8 -pin Fischer type",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 251,
+        "page": 17,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_023",
+    "question": "What is the fine linear positioning range at 4 K?",
+    "reference_answer": "0.8 \u00b5m",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 342,
+        "page": 16,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_024",
+    "question": "What pressure is recommended to achieve with 10m long KF25 and KF16 hoses?",
+    "reference_answer": "~ 10 -5 mbar",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 392,
+        "page": 28,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_025",
+    "question": "What tool should be used to remove the cover of the fuse compartment?",
+    "reference_answer": "a flat blade screwdriver",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 855,
+        "page": 75,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_026",
+    "question": "What is the typical repeatability of step sizes over the full range?",
+    "reference_answer": "5 % over full range",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1147,
+        "page": 54,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_027",
+    "question": "What is the page number for 'Limit Functionality'?",
+    "reference_answer": "36",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 65,
+        "page": 3,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_028",
+    "question": "What is the magnetic field range?",
+    "reference_answer": "0 - 31 T",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 887,
+        "page": 41,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_029",
+    "question": "Who is listed as the author of this document?",
+    "reference_answer": "Dr. Senlin Xia",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "In_depth_APS100_Settings_214490.pdf",
+        "chunk_index": 0,
+        "page": 1,
+        "source": "In_depth_APS100_Settings_214490.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_030",
+    "question": "What screen is opened after discarding changes?",
+    "reference_answer": "the \"expert settings\" screen",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 644,
+        "page": 58,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_031",
+    "question": "What is the title of section 7.5.1?",
+    "reference_answer": "High and low pressure",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 735,
+        "page": 55,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_032",
+    "question": "What is the maximum negative voltage that can be input on the DC-in?",
+    "reference_answer": "-10 V",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 583,
+        "page": 40,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_033",
+    "question": "What is the repeatability specification?",
+    "reference_answer": "4 m\u00b0 (bidirectional)",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1465,
+        "page": 70,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_034",
+    "question": "Where are the dust plugs stored?",
+    "reference_answer": "in the tool",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 773,
+        "page": 57,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_035",
+    "question": "What type of module is the ANM150?",
+    "reference_answer": "an open loop positioning module",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 550,
+        "page": 38,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_036",
+    "question": "What is required according to the text?",
+    "reference_answer": "Pump Parameter set upload required",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 492,
+        "page": 33,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_037",
+    "question": "What page number is associated with the \"SHIM OPTION DESCRIPTION\"?",
+    "reference_answer": "87",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 75,
+        "page": 5,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_038",
+    "question": "What is the maximum load for the bearings ceramics at ambient conditions?",
+    "reference_answer": "20 N",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 177,
+        "page": 9,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_039",
+    "question": "What is the weight listed?",
+    "reference_answer": "42 g",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 131,
+        "page": 7,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_040",
+    "question": "What is the status of 'Change rate FRQ'?",
+    "reference_answer": "Disabled.",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 595,
+        "page": 41,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_041",
+    "question": "Which figures show the normal operating displays of the APS100?",
+    "reference_answer": "Figures 2 through 4",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 318,
+        "page": 20,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_042",
+    "question": "What component is associated with the number 10?",
+    "reference_answer": "Vacuum Feedthrough",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 294,
+        "page": 18,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_043",
+    "question": "What percentage of voltage deviation above or below the voltage rating is mentioned in the caution?",
+    "reference_answer": "10%",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 227,
+        "page": 15,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_044",
+    "question": "What is the model number associated with the Sz component?",
+    "reference_answer": "ANM200",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 184,
+        "page": 17,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_045",
+    "question": "What section should be referred to for establishing a connection to the PC?",
+    "reference_answer": "section 7.2.1",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 783,
+        "page": 70,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_046",
+    "question": "Which figure is referenced for adjusting the value using the corresponding arrow buttons?",
+    "reference_answer": "Figure 47/9",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 666,
+        "page": 60,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_047",
+    "question": "What acronym is mentioned in the text?",
+    "reference_answer": "(PLC)",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 42,
+        "page": 5,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_048",
+    "question": "What magnetic field strength will void the cold head's warranty?",
+    "reference_answer": "greater than 500 gauss",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 696,
+        "page": 53,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_049",
+    "question": "What is the sixth value listed in the row that begins with '60'?",
+    "reference_answer": "1094",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 549,
+        "page": 37,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_050",
+    "question": "What is the version number for /HV Version?",
+    "reference_answer": "1002586",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 991,
+        "page": 46,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_051",
+    "question": "What is the numerical identifier listed below the system description?",
+    "reference_answer": "214490",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 42,
+        "page": 4,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_052",
+    "question": "How is the ANR51 rotator mounted?",
+    "reference_answer": "from the bottom with two M2 screws.",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 236,
+        "page": 14,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_053",
+    "question": "What page number is section 8.4, 'Setting the Sample Temperature', located on?",
+    "reference_answer": "54",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 62,
+        "page": 4,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_054",
+    "question": "Which company holds the copyright for the content on this page?",
+    "reference_answer": "attocube systems AG",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 799,
+        "page": 55,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_055",
+    "question": "What is the sensor resolution?",
+    "reference_answer": "0.1 m\u00b0",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 535,
+        "page": 25,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_056",
+    "question": "What should the lock mode be set to for C12270 control?",
+    "reference_answer": "unlocked",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "AttoDRY Microscope SOP June 2025 v3.docx.pdf",
+        "chunk_index": 345,
+        "page": 39,
+        "source": "AttoDRY Microscope SOP June 2025 v3.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_057",
+    "question": "What is the weight of the equipment?",
+    "reference_answer": "80 g",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 198,
+        "page": 10,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_058",
+    "question": "What type of sealing should be installed?",
+    "reference_answer": "DN63 ISO-K sealing",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "04_Manual_Optical_Breaboard_Add-On.pdf",
+        "chunk_index": 77,
+        "page": 12,
+        "source": "04_Manual_Optical_Breaboard_Add-On.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_059",
+    "question": "What is the status of the 'Change rate FRQ' feature?",
+    "reference_answer": "Disabled",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 594,
+        "page": 41,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_060",
+    "question": "What type of connector is used for vacuum compatible positioners?",
+    "reference_answer": "15-pin PEEK connector",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 365,
+        "page": 19,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_061",
+    "question": "What is the maximum capacitive load?",
+    "reference_answer": "5 \u00b5F",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_5_ANC300-plug-in-modules.pdf",
+        "chunk_index": 9,
+        "page": 1,
+        "source": "07_Specs_5_ANC300-plug-in-modules.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_062",
+    "question": "What do Feature Codes allow for?",
+    "reference_answer": "enabling certain additional features of the ANC300.",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 374,
+        "page": 24,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_063",
+    "question": "What is the typical minimum step size at 4 K?",
+    "reference_answer": "10 nm",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 315,
+        "page": 15,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_064",
+    "question": "What is the purpose of the '3 Sample temperature setting field'?",
+    "reference_answer": "Set the sample temperature, see section 8.1",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 354,
+        "page": 32,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_065",
+    "question": "What is the 3/4\u201d Open end wrench used for?",
+    "reference_answer": "For Aeroquip\u00ae coupling",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 944,
+        "page": 69,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_066",
+    "question": "What is the model name of the longer WD objective mentioned in the text?",
+    "reference_answer": "LT-APO/LWD/VISIR/0.65",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf",
+        "chunk_index": 29,
+        "page": 3,
+        "source": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "factual_067",
+    "question": "What is the wavelength range for coating B?",
+    "reference_answer": "600-1050 nm",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_3_Voigt geometry objective.pdf",
+        "chunk_index": 2,
+        "page": 1,
+        "source": "07_Specs_3_Voigt geometry objective.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_068",
+    "question": "What sections discuss operations and settings?",
+    "reference_answer": "Sections III.2 and III.3",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 325,
+        "page": 23,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_069",
+    "question": "What is the full part number for the ANC300 CPU?",
+    "reference_answer": "ANC300B-C-2114-4008023",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 48,
+        "page": 4,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_070",
+    "question": "What is the travel mechanism technology used in the attoMOTION ANSz100std?",
+    "reference_answer": "piezo driven lever arm mechanism",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 936,
+        "page": 44,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_071",
+    "question": "What is the typical repeatability of step sizes for the accuracy of movement?",
+    "reference_answer": "5 % over full range",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 473,
+        "page": 22,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_072",
+    "question": "What is the travel mechanism technology for the ANPx101?",
+    "reference_answer": "inertial piezo drive",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 43,
+        "page": 3,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_073",
+    "question": "What page number is associated with the 'Main Graphical User Interface'?",
+    "reference_answer": "22",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 47,
+        "page": 3,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_074",
+    "question": "According to this example, what is possible to program in Lua?",
+    "reference_answer": "functions and sub-",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 767,
+        "page": 52,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_075",
+    "question": "What is the model number listed in the technical specifications?",
+    "reference_answer": "ECSz5050/NUM",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 1298,
+        "page": 62,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_076",
+    "question": "What is the weight of the equipment?",
+    "reference_answer": "3.8 g",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 271,
+        "page": 13,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_077",
+    "question": "What is the email address of Senlin Xia?",
+    "reference_answer": "Senlin.Xia@attocube.com",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009195 - Question about nanopositioner issue.docx.pdf",
+        "chunk_index": 57,
+        "page": 3,
+        "source": "UHD009195 - Question about nanopositioner issue.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "factual_078",
+    "question": "What page number does the section 'General procedures' begin on?",
+    "reference_answer": "29",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 49,
+        "page": 3,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "factual_079",
+    "question": "For which type of magnets is the Magnetic field Y display field optional?",
+    "reference_answer": "vector magnets",
+    "category": "factual",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 427,
+        "page": 40,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_000",
+    "question": "How should the Inductance setting be configured for a magnet system, particularly when a low resistance persistent switch is in use?",
+    "reference_answer": "The Inductance setting should generally be set to the nominal inductance of your magnet. However, if a low resistance persistent switch is used in parallel with the magnet, a lower value than the actual magnet inductance may be set to provide faster settling times without inducing overshoot.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 59,
+        "page": 32,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_001",
+    "question": "How do I set the current limit for a selected shim?",
+    "reference_answer": "To set the current limit for a selected shim, use the `SLIM` command.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 78,
+        "page": 45,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_002",
+    "question": "How should the magnet be charged during its initial training phase compared to subsequent charges?",
+    "reference_answer": "During the initial training phase to full field, ramp rates lower than the standard ramp rates should be employed. For subsequent charges, such as the second time, the magnet should be charged using maximum charging rates.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 16,
+        "page": 10,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_003",
+    "question": "How do you open the 'Information' screen on the touch panel application?",
+    "reference_answer": "To open the 'Information' screen, you need to press the element labeled '[attocube]'.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 48,
+        "page": 31,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_004",
+    "question": "How does the GND controller mode operate?",
+    "reference_answer": "The text describes the GND controller mode as one in which the outputs are deactivated and connected to chassis mass. It does not provide steps on how to activate or implement this mode.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 9,
+        "page": 5,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_005",
+    "question": "How should one perform the repolarization procedure for a piezo?",
+    "reference_answer": "To repolarize a piezo, follow these steps: First, ensure that the piezos are connected with the correct polarity to a DC voltage. Next, apply 10 V DC for 1 minute. Then, apply 20 V DC for 1 minute. After that, continue to increase the DC voltage in increments of 10 V, applying each new voltage for 1 minute. Stop the procedure once the maximum specified applicable voltage has been applied for 1 minute.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 60,
+        "page": 28,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_006",
+    "question": "How do I troubleshoot connection issues between the APS100 and the attoDRY2100 if a missing USB connection is suspected?",
+    "reference_answer": "First, ensure that the APS100 and the attoDRY2100 are connected via USB, referencing the systems specification sheet for proper connection. Note that a USB hub is necessary if you need to connect all magnetic axes simultaneously. After confirming the connection, restart the support unit while the ASP100 is running.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 115,
+        "page": 78,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_007",
+    "question": "What is the initial step to take if the bolt pattern on the heat exchanger needs to be changed?",
+    "reference_answer": "If the bolt pattern on the heat exchanger needs to be changed, you must consult Cryomech first to learn how to prevent damage to the cold head. Holes drilled without prior approval from Cryomech will void the warranty.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 25,
+        "page": 14,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_008",
+    "question": "How do you place the magnet into persistent mode and then zero the current in the leads?",
+    "reference_answer": "To place the magnet into persistent mode, first turn off the persistent switch heater supply by pressing [PERS HTR] then [CONFIRM HTR OFF]. (Pressing either [CANCEL] or [ESC] will cancel turning the heater off.) Wait a few seconds or whatever time is required by the magnet\u2019s persistent switch. Once the magnet is in persistent mode, the current in the leads may be brought back to zero by pressing the [Zero] key. It is important to use the [ZERO] key, as pressing [LO LIMIT] will result in the supply sweeping to the lower current limit rather than to zero. Watch the magnet voltage while the supply begins to sweep toward zero to verify that the magnet has indeed entered persistent mode.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 36,
+        "page": 17,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_009",
+    "question": "How do you remove the half-rings according to the provided procedure?",
+    "reference_answer": "To remove the half-rings, first prepare two pieces of thick cardboard (100 mm x 200 mm). Carefully pull the VTI bellow up and slide the two cardboard pieces under the support ring. Next, loosen the two screws holding the two half-rings. Finally, hold the ISO-K flange, ensuring no force is exerted on the bellow, and then remove both half-rings.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "04_Manual_Optical_Breaboard_Add-On.pdf",
+        "chunk_index": 6,
+        "page": 7,
+        "source": "04_Manual_Optical_Breaboard_Add-On.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_010",
+    "question": "What is the procedure to follow if the cryo-out pressure gauge is determined to be malfunctioning after the cable swap test?",
+    "reference_answer": "If the cryo-out pressure gauge is found to be malfunctioning after the cable swap test (indicated by reasonable readouts instead of e-6 mbar after swapping cables), the procedure is to first warm up the entire system to room temperature, and then replace the defective pressure gauge.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 10,
+        "page": 9,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "procedural_011",
+    "question": "How would one go about wiring the microscope?",
+    "reference_answer": "The provided text is a table of contents and indicates that information regarding 'Microscope Wiring' can be found in a dedicated section on page 18. However, the specific steps or procedure for wiring the microscope are not described within this snippet.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 4,
+        "page": 3,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_012",
+    "question": "How should the mating flange of the vacuum chamber be attached to the cold head?",
+    "reference_answer": "First, insert into the O-ring groove. Then, join the mating flange of the vacuum chamber onto the cold head. Secure the flange to the base plate with the proper number of screws, ensuring to tighten the screws evenly around the mating surface.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 69,
+        "page": 42,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_013",
+    "question": "How does one locate the detailed instructions for installing the Cryomech Cryorefrigerator within this manual?",
+    "reference_answer": "To locate the detailed instructions for installing the Cryomech Cryorefrigerator, a user should refer to Section 6 of the manual. The text specifies that the main body of the manual provides instructions for installation, and Sections 4 through 8 offer detailed instructions for installation, operation, and maintenance, with Section 6 specifically covering Installation.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 6,
+        "page": 5,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_014",
+    "question": "How long does it take for the sample to warm from 2K to 295K?",
+    "reference_answer": "The sample time from 2K to 295 K is 1 hour and 33 minutes.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 14,
+        "page": 9,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_015",
+    "question": "Based on the provided text, how would one connect several PCs or devices for exchanging data over the internet using a LAN?",
+    "reference_answer": "The provided text defines LAN as 'Local Area Network. Standard way of connecting several PCs or devices for exchanging data over the internet.' However, it does not describe the steps or procedure for *how* to connect them using a LAN. It only states what a LAN is and its purpose.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 10,
+        "page": 5,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_016",
+    "question": "What precautions must be taken when connecting the digital I/O to external equipment to prevent injury and fire hazard?",
+    "reference_answer": "To prevent injury and fire hazard when connecting the digital I/O to external equipment, one must ensure that the external equipment is galvanically isolated from the mains and is not connected to a voltage higher than the limits specified in section II.2.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 35,
+        "page": 20,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_017",
+    "question": "What is the correct procedure for shutting down the cryogenic system?",
+    "reference_answer": "To shut down the cryogenic system, first press the \u201cCompressor Off\u201d button on the front panel of the compressor package. This action will switch off the compressor system. Following this, switch off the front-panel mounted circuit breaker to shut down the entire system.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 96,
+        "page": 55,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_018",
+    "question": "How would one operate the ANR240 to achieve fine angular positioning at a temperature of 4 K?",
+    "reference_answer": "To achieve fine angular positioning with the ANR240 at a temperature of 4 K, one would need to apply a DC input voltage within the range of 0 to 150 V. This operation would allow for a fine angular positioning range of 4 m\u00b0.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 81,
+        "page": 37,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_019",
+    "question": "How does the ANGp50 nano drive perform coarse positioning, and what are its key operational parameters?",
+    "reference_answer": "The ANGp50 nano drive performs coarse positioning using an input voltage range of 0 - 60 V. In step mode, it has a travel range of 5.8 degrees. Its maximum drive velocity at 300 K is approximately 1 degree per second. The typical minimum step size at 300 K is 0.1 m\u00b0, and at 4 K, it is 0.02 m\u00b0.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 50,
+        "page": 23,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_020",
+    "question": "How do I connect the cryostat to a PC via USB?",
+    "reference_answer": "To connect the cryostat to a PC via USB, first ensure the PC fulfills the requirements specified in section 4.5, the power switch at the cryostat\u2019s connection panel (Figure 8/1) is set to \"0\", and the PC is shut off. Then, connect the PC and the cryostat (Figure 8/5) via USB cable. Next, start the PC. After that, set the power switch at the cryostat\u2019s connector panel (Figure 8/1) to \"I\", which will start up the cryostat. Finally, open the device manager at the PC.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 69,
+        "page": 50,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_021",
+    "question": "How should the appropriate connector be selected and used for the positioner?",
+    "reference_answer": "To select the appropriate connector, use a 14-pole connector for standard applications. If the application is High Vacuum (HV) or Ultra High Vacuum (UHV), use a 15-pin D-Sub connector. In either case, the connection should be made with a 50 cm cable.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 124,
+        "page": 58,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_022",
+    "question": "How does the unit prevent overheating during operation?",
+    "reference_answer": "The unit prevents overheating by limiting its discharge power.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 20,
+        "page": 10,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_023",
+    "question": "How do you set the upper and lower current limits for the magnet's operating current using the APS100?",
+    "reference_answer": "To set the upper and lower current limits, first navigate from the sweep menu and select [SETUP], then [LIMITS]. Once in the Limits menu, use the arrow keys to select either the upper or lower current limit and then enter the desired value. Remember that the upper current limit must always be more positive than the lower current limit.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 34,
+        "page": 16,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_024",
+    "question": "How do you connect the magnet power supply according to the procedure?",
+    "reference_answer": "To connect the magnet power supply, first ensure the power switch at the support unit\u2019s connection panel (Figure 8/1) is set to \"0\". Then, connect the USB-A port on the support unit (Figure 8/5) to the USB-B port on the APS. Next, turn on the magnet power supply and wait until it is booted. After booting, press the [Remote] button on the magnet power supply. Finally, set the power switch at the support unit\u2019s connection panel (Figure 8/1) to \"I\", which will start up the cryostat and display \"REMOTE\" on the magnet power supply. The last step is to navigate to the \"Actions\" screen on the touch panel.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 73,
+        "page": 52,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_025",
+    "question": "How can you mount the LWD if there isn't enough space to use the RF lines at the same time?",
+    "reference_answer": "To mount the LWD when there isn't enough space to use the RF lines simultaneously, you have to remove the 0dB dampers and the fixing plates. It is important to note that the RF lines cannot be used in this configuration.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf",
+        "chunk_index": 4,
+        "page": 4,
+        "source": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "procedural_026",
+    "question": "How do you perform the complete magnetic field ramping cycle as described, including setpoint changes and holds?",
+    "reference_answer": "To perform the complete magnetic field ramping cycle, first ramp the field from 0T to 9T. Once the field reaches 9T, hold it at 9T for 10 minutes. After the hold, change the setpoint to -9T (by performing steps 1 and 2, and importantly, not pressing button 3 again as the system is already controlling the field). The field will then ramp from 9T to -9T. Finally, change the setpoint back to 0T (again, using steps 1 and 2, and not button 3) to ramp the field from -9T back to 0T.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "In_depth_APS100_Settings_214490.pdf",
+        "chunk_index": 19,
+        "page": 20,
+        "source": "In_depth_APS100_Settings_214490.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_027",
+    "question": "How can an update be applied to the ANC300 using FTP?",
+    "reference_answer": "To apply an update to the ANC300 using FTP, first connect to the ANC300 via FTP. Then, log in as the user \"update\" with the password \"1234\". Finally, send the update file to the ANC300 using a \"put\" command. The ANC300 will then evaluate the update and install it if it is suitable and valid.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 77,
+        "page": 44,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_028",
+    "question": "How do you move an axis upwards using the provided commands?",
+    "reference_answer": "To move an axis upwards, use the `stepu <AID> [<C>]` command. Replace `<AID>` with the specific Axis ID. You can specify the number of steps to move by replacing `<C>` with an integer, or omit `<C>` to move the axis continuously upwards. It is important to note that an error will occur if the axis is not in 'stp' mode.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 86,
+        "page": 47,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_029",
+    "question": "How can a user utilize the 'Power Fail' mode to shut down the magnet at the end of the day?",
+    "reference_answer": "To utilize the 'Power Fail' mode for shutting down the magnet at the end of the day, the user can simply turn OFF the power switch for the unit.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 17,
+        "page": 9,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_030",
+    "question": "How should the ECSz5050 be mounted?",
+    "reference_answer": "The ECSz5050 can be mounted in an arbitrary orientation, as specified under 'Working Conditions'.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 129,
+        "page": 61,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_031",
+    "question": "How can an operator configure the APS100 power supply for a specific magnet?",
+    "reference_answer": "An operator can configure the APS100 power supply for a specific magnet by using the easy-to-use menu system to input the parameters of their particular magnet.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 14,
+        "page": 7,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_032",
+    "question": "How should the isolation vacuum be prepared before cooling down the cryogenic equipment?",
+    "reference_answer": "Before cooling down, the isolation vacuum and the sample tube, which are initially filled with air after the first assembly, must be thoroughly pumped. This is achieved by connecting the KF25 valve of the isolation vacuum to an external turbo pump.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 50,
+        "page": 26,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_033",
+    "question": "How can one locate the visual representation of the Normal Operating Display for a Dual Supply configuration within this manual?",
+    "reference_answer": "The visual representation of the Normal Operating Display for a Dual Supply configuration can be located as Figure 6 on Page 22, under section IV.1.b.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 45,
+        "page": 22,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_034",
+    "question": "What is the troubleshooting procedure for 'Error 21: Pump Serial enable input went inactive whilst operating with a serial start command' on the attoDRY system?",
+    "reference_answer": "To troubleshoot 'Error 21', first turn off the attoDRY. Then, switch the pump on and off again. After that, turn the attoDRY on. If the error occurs again, contact attocube. Additionally, ensure the cable between the pump and the attoDRY is plugged in properly.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 65,
+        "page": 33,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_035",
+    "question": "What is the procedure for installing the VTI up to its final position?",
+    "reference_answer": "First, install the DN63 ISO-K sealing. Then, insert the VTI with extreme caution. Next, connect the signal cables according to the previously made labels. Finally, bring the VTI to its final position with extreme caution, but do not fix the ISO-K clamps at this point.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "04_Manual_Optical_Breaboard_Add-On.pdf",
+        "chunk_index": 11,
+        "page": 12,
+        "source": "04_Manual_Optical_Breaboard_Add-On.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_036",
+    "question": "How should Aeroquip fittings be connected?",
+    "reference_answer": "Aeroquip fittings should be connected using the wrenches supplied in the tool kit until a positive stop is felt.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 74,
+        "page": 44,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_037",
+    "question": "How can I operate the attoDRY2100 system with the 9T magnet and attoCFM I with Voigt upgrade?",
+    "reference_answer": "The provided text is a table of contents entry and does not contain the procedural steps or instructions for operating the attoDRY2100 system, its 9T magnet, or the attoCFM I with Voigt upgrade. It only lists these components and mentions the availability of 'User Manuals and System Specifications' where such operational details would typically be found.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "00_214490 - TOC.pdf",
+        "chunk_index": 0,
+        "page": 1,
+        "source": "00_214490 - TOC.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_038",
+    "question": "What is the procedure to follow if the attoDRY system displays Error Code 4?",
+    "reference_answer": "If the attoDRY system displays Error Code 4, indicating a fault with channel A on the temperature monitor, you should first turn the attoDRY off and then on again. If this error occurs repeatedly after restarting, you must contact attocube.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 62,
+        "page": 32,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_039",
+    "question": "How can a user query the upwards pattern on the ANC300?",
+    "reference_answer": "To query the upwards pattern on the ANC300, a user should input the command `getpu 1`. The system will then list the respective values of the pattern, separated by newlines, starting from 0 and continuing up to 255, followed by an \"OK\" confirmation.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 89,
+        "page": 49,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_040",
+    "question": "How does a pulse tube cooler, such as the attoDRY2100, achieve its cooling effect?",
+    "reference_answer": "The cooling effect of a pulse tube cooler is based on the periodic compression and displacement of a working gas. In the attoDRY2100, this is achieved with a compressor, two Helium pressure lines, and the pulse tube cooler valve. The pulse tube cooler consists of a regenerator with a porous magnetic material inside, which is connected to the cold end of the hollow pulse tube. At the warm end, the pulse tube is connected to a buffer volume by an orifice. The gas flow through this orifice separates the heating and the cooling effects, leading to the overall cooling.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 25,
+        "page": 13,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_041",
+    "question": "When should the N2 trap be installed in relation to the next cool down process?",
+    "reference_answer": "The N2 trap should be installed before performing the next cool down.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "UHD010642 - Update on our attocube system.docx.pdf",
+        "chunk_index": 3,
+        "page": 2,
+        "source": "UHD010642 - Update on our attocube system.docx.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "email"
+  },
+  {
+    "id": "procedural_042",
+    "question": "How are attocube positioners typically set up for direct table-top testing?",
+    "reference_answer": "Attocube positioners are delivered with a set of test cables which connect directly from the electronics to the positioners, and these cables are designed for direct table-top testing.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 43,
+        "page": 21,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_043",
+    "question": "How should the ANSxy100 scanner titanium frame and its top plate be mounted according to the provided instructions?",
+    "reference_answer": "First, the titanium frame of the scanner is mounted to a base plate using two M2 screws. It is crucial to apply no torque on any of the piezoelectric ceramic stack actuators while tightening these screws, and the part with the threaded holes should be firmly held. Second, the top plate must be carefully attached and tightened with two M2 screws. During this tightening process, it is important to hold only the top plate to prevent uncontrolled torques from being applied to the scanner.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 30,
+        "page": 15,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_044",
+    "question": "How are confocal measurements performed using the system?",
+    "reference_answer": "To perform confocal measurements, first use a Ronchi ruling test sample (Cr on glass, 5000 lines per inch). Next, set an LDM600 laser detector module to an output power of 100 \u2013 200 \u00b5W. For each layer of the optical head, the reflected signal gets detected and converted into a voltage, whose value is then used as an input for the following maps.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 18,
+        "page": 11,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_045",
+    "question": "What are the necessary conditions and steps to select a shim using the SHIM command?",
+    "reference_answer": "To select a shim using the SHIM command, you must first ensure that the system is operating in SHIM mode. Additionally, the switch heater must be off when you are making the shim selection. Once these conditions are met, you can then use the SHIM command to select the desired shim.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 94,
+        "page": 53,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_046",
+    "question": "How can one determine the specified spot size for the LT-APO objective when operating in Faraday geometry?",
+    "reference_answer": "According to the specifications, the spot size for the LT-APO objective in Faraday geometry is 623 nm at base temperature.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 20,
+        "page": 12,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_047",
+    "question": "How does one determine the specific part number for the stainless steel, ultra-high vacuum (UHV) version of the ECR5050hs?",
+    "reference_answer": "To determine the specific part number for the stainless steel, ultra-high vacuum (UHV) version, first locate the 'Versions' section in the document. Then, identify the entry that combines '/StSt' (for stainless steel) and '/UHV' (for ultra-high vacuum). The corresponding part number listed for this version is 1012484.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 150,
+        "page": 71,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_048",
+    "question": "How does one determine the current operational status or any active exceptions of the module's sweep function?",
+    "reference_answer": "To determine the current operational status or any active exceptions, one must observe the 'Module Sweep Status' field. This field will display various indicators such as 'Standby', '-Paused-', 'Sweeping to HI LIMIT', 'Sweeping to LO LIMIT', 'Sweeping to ZERO', 'Sweeping to MAGNET', 'Swp FAST to HI LIMIT', 'Swp FAST to LO LIMIT', 'Swp FAST to ZERO', or 'Swp FAST to MAGNET' for operational states. For exceptions, the field will show 'QUENCH DETECTED', 'PASSIVE DISCHARGE', 'RECOVERING', 'SHUTDOWN COMMAND' (indicating rear shutdown input activation), or 'OFFLINE' (indicating a module problem).",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 47,
+        "page": 23,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_049",
+    "question": "What is the specified method for connecting the ECSz3030?",
+    "reference_answer": "The ECSz3030 is connected using its integrated 50 cm cable, which terminates in a 14-pole connector.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 125,
+        "page": 59,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_050",
+    "question": "How can a user obtain technical support for the Low Temperature Measurement System?",
+    "reference_answer": "To obtain technical support, users should contact support@attocube.com.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 0,
+        "page": 1,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_051",
+    "question": "How should the attoMOTION device be mounted?",
+    "reference_answer": "According to the 'Working Conditions' section, the attoMOTION device has an arbitrary mounting orientation.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 154,
+        "page": 73,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_052",
+    "question": "How should Aeroquip\u00ae couplings be cleaned if they become dirty?",
+    "reference_answer": "Before cleaning Aeroquip\u00ae couplings, it is crucial to first relieve the helium charge from the system to prevent injury. Once the charge is relieved, wipe the mating surfaces of the coupling with a dry, lint-free cloth. After wiping, blow off the coupling with clean, dry compressed air. Solvents should never be used for cleaning these couplings.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 129,
+        "page": 73,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_053",
+    "question": "How should the input DC voltage range be adjusted for the ANSz50's fine positioning mode when operating at cryogenic temperatures compared to ambient conditions?",
+    "reference_answer": "When operating the ANSz50 in fine positioning mode, the input DC voltage range needs to be adjusted based on temperature. At ambient conditions (300 K), the input DC voltage range is 0 - 60 V. For operation at cryogenic temperatures (4 K), the input DC voltage range should be adjusted to 0 - 150 V.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 87,
+        "page": 40,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_054",
+    "question": "How would an operator achieve a full 360-degree rotation using the ANRv220/RES nano drive?",
+    "reference_answer": "To achieve a full 360-degree rotation, the operator would need to utilize the Coarse Positioning Mode of the ANRv220/RES. This mode supports a travel range of 360\u00b0 in step mode and operates with an input voltage range of 0 - 60 V.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 79,
+        "page": 36,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_055",
+    "question": "How does a user execute operations or change basic settings on the attoDRY2100?",
+    "reference_answer": "A user can execute operations and change basic settings from the touch screen, which provides an intuitive interface.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 44,
+        "page": 23,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_056",
+    "question": "How do you determine the physical location of a sample labeled with the number '10' within the 4x4 grid shown in the diagram, considering the provided numbering scheme and row/column labels?",
+    "reference_answer": "To determine the physical location of a sample labeled '10' within the 4x4 grid: 1. Refer to the 4x4 grid diagram, which is oriented with the 'Front Row' at the bottom and the 'Back Row' at the top. 2. Locate the number '10' within this grid. 3. Based on the diagram, '10' is found in the third row from the bottom (or second row from the top) and the fourth column from the left (or first column from the right).",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 30,
+        "page": 19,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_057",
+    "question": "What is the initial step to take when checking the fuses of the equipment?",
+    "reference_answer": "The initial step is to switch off the case before checking all fuses, both internal and external ones.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 117,
+        "page": 64,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_058",
+    "question": "How should the compressor package's power cord be connected to the breaker panel?",
+    "reference_answer": "First, ensure the dedicated circuit breaker is turned OFF. Then, connect the ground wire (green for 60 Hz or green/yellow stripe for 50 Hz systems) from the power cord to the ground connector in the breaker panel, tightening it securely. Finally, connect the remaining hot wires to the corresponding lugs on the dedicated breaker in the breaker panel, also tightening them securely. For single-phase CP800 Series, the order of hot wires is not important; for 3-phase, the order is not important at this stage.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 81,
+        "page": 48,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_059",
+    "question": "How can a user change the display units on the APS100?",
+    "reference_answer": "To change the display units on the APS100, the user should access the 'Units menu item'. From there, they can select either 'Amperes' or 'Field' as the desired display unit.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 57,
+        "page": 31,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_060",
+    "question": "What is the procedure to generate a true condition on an input for the cryogenic equipment?",
+    "reference_answer": "To generate a true condition on an input, first connect the input reference IN_REF to a positive DC voltage that is greater than 12 volts and less than 30 volts (with a minimum current of 3mA). Then, close the selected input pin to the return of that supply. An isolated 24-volt supply and its return are provided on pins 11 and 10 of the connector, respectively, which can be used for this purpose.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 57,
+        "page": 33,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_061",
+    "question": "How do you achieve fine linear positioning with the ANPx321 at 4 K?",
+    "reference_answer": "To achieve fine linear positioning with the ANPx321 at 4 K, an input DC voltage in the range of 0 - 150 V should be applied.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_6_POS_SpecSheets.pdf",
+        "chunk_index": 17,
+        "page": 9,
+        "source": "07_Specs_6_POS_SpecSheets.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_062",
+    "question": "How should you configure the APS100 magnet power supply if your magnet is equipped with a persistent mode switch and you desire quench detection?",
+    "reference_answer": "If the magnet to be energized is equipped with a persistent mode switch, the heater current necessary to activate it should be entered in the Persistent Switch Heater (mA) field. Additionally, if quench detection is desired, set Quench Detection to On.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 31,
+        "page": 15,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_063",
+    "question": "How do you assemble the LT-stack for Faraday/Voigt measurements, following the order from bottom to top?",
+    "reference_answer": "To assemble the LT-stack from bottom to top: First, attach the x Positioner to the ANSz 100 body using two M2x8 screws and two M2x7 screws. Next, attach the y Positioner to the x Positioner using two M2x8 screws and two M2x7 screws. Then, attach the z Positioner to the y Positioner using two M2x8 screws and two M2x7 screws. Place the 1mm ASH/QE/0Y Teflon Plate on top of the z Positioner. Position the xy-Scanner on the Teflon Plate. Finally, secure the ANSz 100 topplate to the xy-Scanner using two M2.5x6 screws.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 31,
+        "page": 20,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_064",
+    "question": "How is the maximum power available from each power output module calculated when the APS100 is powered from a line voltage less than 220V?",
+    "reference_answer": "To calculate the maximum power available from each power output module when the APS100 is powered from a line voltage less than 220V, use the following formula: Output Power Available = (1200-(200-VIN)*7.42) - 3*IOUT. In this formula, VIN represents the AC input line voltage and IOUT represents the DC output current.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "03_APS100 magnet power supply manual v1d1.pdf",
+        "chunk_index": 23,
+        "page": 11,
+        "source": "03_APS100 magnet power supply manual v1d1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_065",
+    "question": "What PID controller settings were used to achieve the 2 K set point?",
+    "reference_answer": "To achieve the 2 K set point, the PID controller settings used were P=5, I=15, and D=2.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 12,
+        "page": 7,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_066",
+    "question": "How are the PID values displayed on the options screen determined based on the active heater?",
+    "reference_answer": "The PID values displayed on the options screen are determined by which heater is currently active. If no heaters are on or the sample heater is on, the PID values for the sample temperature control are shown. If the VTI heater is on, which occurs during the sample exchange procedure, there are two different sets of PID values, depending on whether the sample temperature is present or not. For the latter case, where the sample temperature is not present, the VTI temperature sensor is controlled during the sample exchange procedure.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 47,
+        "page": 25,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_067",
+    "question": "How would one determine the working distance of the LT-APO/VISIR/0.82 low temperature objective based on the provided specifications?",
+    "reference_answer": "To determine the working distance of the LT-APO/VISIR/0.82 objective, one should first locate the specifications for the 'LT-APO/VISIR/0.82' type. Within that section, find the 'Working Distance' property, which is listed as 0.65 mm.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 21,
+        "page": 13,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_068",
+    "question": "How is the sample exchange procedure performed according to the document?",
+    "reference_answer": "To perform the sample exchange procedure, first ensure the cryostat is at base temperature. Then, initiate the automated sample exchange procedure. The sample space is subsequently warmed up to allow for the extraction of the test insert. During this process, the temperatures of both the insert sample and the gas in the VTI are recorded as a function of time.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 13,
+        "page": 8,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "procedural_069",
+    "question": "How should the attoDRY2100 be connected to the voltage supply, considering regional differences and cable requirements?",
+    "reference_answer": "The attoDRY2100 must be connected only to an earthed fused single-phase supply of 100 V, 115 V or 230 V, 50/60 Hz. The system is shipped with appropriate power cables for use in Europe, UK, USA, and Japan. For other territories, the user must fit the appropriate power plug. It is crucial to use only power supply cables supplied by attocube systems, as other cables may not be rated to the same current.",
+    "category": "procedural",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 40,
+        "page": 21,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "coarse",
+    "expected_doc_type": "manual"
+  },
+  {
+    "id": "multihop_000",
+    "question": "What is the combined purpose of the pulse tube's function in separating warm and cold regions, and the initial process of pumping helium from a storage vessel for use with a VTI heater, within the attoDRY2100 system?",
+    "reference_answer": "The pulse tube functions to separate warm and cold regions, contributing to the system's cooling. This cooling is then complemented by the initial pumping of helium from a storage vessel for use with a VTI heater, which likely enables precise temperature control or heating of specific parts of the system, building upon the base cooling provided by the pulse tube.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 211,
+        "page": 14,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      },
+      {
+        "doc_id": "02_Manual attoDRY2100_V2.1.pdf",
+        "chunk_index": 401,
+        "page": 29,
+        "source": "02_Manual attoDRY2100_V2.1.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_001",
+    "question": "What component, mentioned as needing a fix, could be related to the cryostat's low base temperature of 1.77 K, which led to its warming up and the cold trap needing a recharge?",
+    "reference_answer": "The adsorber. The need to fix the adsorber (from Passage 2) is implied to address an \"issue\" that could be the cause of the cryostat's low base temperature of 1.77 K, which in turn necessitated warming up the cryostat and recharging the cold trap (from Passage 1).",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 37,
+        "page": 5,
+        "source": "Attocube past issues.pdf"
+      },
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 7,
+        "page": 1,
+        "source": "Attocube past issues.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_002",
+    "question": "What specific inputs are controlled by the VI described on page 56, and where would the physical controls and indicators for these inputs be found on the ANC300 according to page 16?",
+    "reference_answer": "The VI described on page 56 controls the AC-IN and DC-IN inputs. The physical controls and indicators for these inputs would be found on the ANC300's front panel, as detailed on page 16.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 266,
+        "page": 16,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      },
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 808,
+        "page": 56,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_003",
+    "question": "Given the context of the 'Software control of valves and scroll pump' document, which was associated with an email from Medha Dandu on July 12, 2024, what is the very first action required in the described procedure?",
+    "reference_answer": "The very first action required is to 'Turn off both units.'",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009950 - Software control of valves and scroll pump.docx.pdf",
+        "chunk_index": 14,
+        "page": 2,
+        "source": "UHD009950 - Software control of valves and scroll pump.docx.pdf"
+      },
+      {
+        "doc_id": "UHD009950 - Software control of valves and scroll pump.docx.pdf",
+        "chunk_index": 43,
+        "page": 5,
+        "source": "UHD009950 - Software control of valves and scroll pump.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_004",
+    "question": "According to the AttoDRY Microscope SOP June 2025, if an issue persists requiring a power cycle of the support unit, where can one borrow necessary components if they are not available on site?",
+    "reference_answer": "If components are not available on site, they can be borrowed from Attocube Berkeley.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "AttoDRY Microscope SOP June 2025 v3.docx.pdf",
+        "chunk_index": 212,
+        "page": 17,
+        "source": "AttoDRY Microscope SOP June 2025 v3.docx.pdf"
+      },
+      {
+        "doc_id": "AttoDRY Microscope SOP June 2025 v3.docx.pdf",
+        "chunk_index": 222,
+        "page": 18,
+        "source": "AttoDRY Microscope SOP June 2025 v3.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_005",
+    "question": "What specific temperature is mentioned in the manual concerning the compressor, and what critical instruction, including a warning, is provided for connecting the compressor package to its main power supply?",
+    "reference_answer": "The manual notes 53\u00b0C in relation to the compressor, and Section 6.2.3 provides the instruction to 'Connect the compressor package to the main power' with an accompanying 'CAUTION'.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 81,
+        "page": 6,
+        "source": "08_PT410RM_CPA289C.pdf"
+      },
+      {
+        "doc_id": "08_PT410RM_CPA289C.pdf",
+        "chunk_index": 226,
+        "page": 15,
+        "source": "08_PT410RM_CPA289C.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_006",
+    "question": "Considering the document 'UHD009950 - Software control of valves and scroll pump.docx.pdf', what is the email address of the sender of the communication found on page 7, and who was one of the recipients of the communication found on page 5?",
+    "reference_answer": "The email address of the sender of the communication on page 7 is Senlin.Xia@attocube.com, and Medha was one of the recipients of the communication on page 5.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009950 - Software control of valves and scroll pump.docx.pdf",
+        "chunk_index": 69,
+        "page": 7,
+        "source": "UHD009950 - Software control of valves and scroll pump.docx.pdf"
+      },
+      {
+        "doc_id": "UHD009950 - Software control of valves and scroll pump.docx.pdf",
+        "chunk_index": 51,
+        "page": 5,
+        "source": "UHD009950 - Software control of valves and scroll pump.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_007",
+    "question": "Under what specific condition would a user consider gluing samples directly to the sample carrier, as opposed to utilizing sample mounting plates such as the SP200 type?",
+    "reference_answer": "Gluing samples directly to the sample carrier should only be done if there is no space, serving as an alternative to using standard or replacement sample mounting plates like the SP200.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 32,
+        "page": 3,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      },
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 59,
+        "page": 7,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_008",
+    "question": "How many approaches are there to using the SR200 Sample Carrier, and what type of cells is this sample carrier designed to fit?",
+    "reference_answer": "There are two possible approaches to using the SR200 Sample Carrier, which is designed to fit UC200 cells.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 23,
+        "page": 3,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      },
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 0,
+        "page": 1,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_009",
+    "question": "According to the document, what was the purpose for which different connections and wires were suggested?",
+    "reference_answer": "Different connections and wires were suggested for performing pressure stability tests.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 98,
+        "page": 8,
+        "source": "Attocube past issues.pdf"
+      },
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 104,
+        "page": 8,
+        "source": "Attocube past issues.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_010",
+    "question": "For applications such as Scanning Probe Microscopy (SPM) that necessitate good sample access, what is the effective spring constant of the combined sample carrier and cell assembly?",
+    "reference_answer": "The effective spring constant of the combined sample carrier and cell assembly is 2 N/\u03bcm. This is calculated by considering the 4 N/\u03bcm spring constant of the sample carrier and the 4 N/\u03bcm spring constant of the cell itself as being in series, which is relevant for applications like SPM requiring good sample access.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 18,
+        "page": 2,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      },
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 33,
+        "page": 3,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_011",
+    "question": "Which company, copyrighted between 2001 and 2021, is responsible for the '01_214490_System-Spec-Sheet.pdf' document that includes a section on 'Sample Temperature Stability (Control Loop)'?",
+    "reference_answer": "attocube systems AG",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 19,
+        "page": 3,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      },
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 141,
+        "page": 12,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_012",
+    "question": "For the attoDRY2100 system, what is the maximum magnetic field that can be achieved for a sample when a component is mounted in the insert?",
+    "reference_answer": "9.0 T",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 76,
+        "page": 6,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      },
+      {
+        "doc_id": "01_214490_System-Spec-Sheet.pdf",
+        "chunk_index": 69,
+        "page": 6,
+        "source": "01_214490_System-Spec-Sheet.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_013",
+    "question": "Considering the ANC300 manual states that specifications are subject to change, what specific label on the equipment provides the manufacturer's address, and what type of technical information, such as connection instructions, might be affected by these changes?",
+    "reference_answer": "The manufacturer's address is found on the CE label with the serial number. Technical information, such as instructions on how to connect a positioner, might be affected by these changes, as specifications and technical data are subject to change without notice.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 291,
+        "page": 18,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      },
+      {
+        "doc_id": "05_Manual ANC300 v3.4.pdf",
+        "chunk_index": 629,
+        "page": 45,
+        "source": "05_Manual ANC300 v3.4.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_014",
+    "question": "When setting up ANP positioners for cutting-edge experiments, what physical assembly detail must be considered in conjunction with their electronic control system?",
+    "reference_answer": "For ANP positioners, the thickness of the plate must be taken into consideration regarding the suitable length for the screw being used, while these positioners are driven by electronic controllers and matching software modules for cutting-edge experiments.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 282,
+        "page": 16,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      },
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 293,
+        "page": 17,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_015",
+    "question": "Given that vacuum-compatible positioners use a 15-pin PEEK connector with S+, S0, S- pin assignments, what is the suggested method for checking if a positioner is connected with the right polarity?",
+    "reference_answer": "To check if a vacuum-compatible positioner is connected with the right polarity using its 15-pin PEEK connector (which has S+, S0, S- assignments), the suggested method is to 'Try to move' the positioner.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 365,
+        "page": 19,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      },
+      {
+        "doc_id": "06_Manual FlexPositioners & Scanner_v2.7.pdf",
+        "chunk_index": 518,
+        "page": 28,
+        "source": "06_Manual FlexPositioners & Scanner_v2.7.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_016",
+    "question": "According to these passages, what categories of intellectual property rights, including those related to trademarks, are indicated as being protected by attocube systems AG?",
+    "reference_answer": "The passages indicate protection for trademarks, rights created by patent grant, registration of a utility model or design, and rights of technical modifications, all under the ownership of attocube systems AG.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_4_ANC300.pdf",
+        "chunk_index": 14,
+        "page": 1,
+        "source": "07_Specs_4_ANC300.pdf"
+      },
+      {
+        "doc_id": "07_Specs_4_ANC300.pdf",
+        "chunk_index": 12,
+        "page": 1,
+        "source": "07_Specs_4_ANC300.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_017",
+    "question": "Who was communicating about the cryogenic equipment's failure to achieve base temperature, and when was this communication sent?",
+    "reference_answer": "Daria Blach (<DBlach@lbl.gov>) and Senlin Xia (<Senlin.Xia@attocube.com>) were communicating, and the message was sent on Mon, Jun 3, 2024 at 2:08 PM.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 19,
+        "page": 1,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      },
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 266,
+        "page": 22,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_018",
+    "question": "Considering the instruction to keep the attoDry2100 manual easily accessible, on which page can users locate details about the Waste Electrical and Electronic Equipment (WEEE) Directive?",
+    "reference_answer": "Users can find details about the Waste Electrical and Electronic Equipment (WEEE) Directive on page 7 of the attoDry2100 manual.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 13,
+        "page": 3,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      },
+      {
+        "doc_id": "Manual attoDry2100 en_V3.pdf",
+        "chunk_index": 104,
+        "page": 6,
+        "source": "Manual attoDry2100 en_V3.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_019",
+    "question": "What approximate pressure is maintained by the turbomolecular pump across the complete temperature range, and what other key component is included for temperature management?",
+    "reference_answer": "The turbomolecular pump maintains an approximate pressure of ~50 mbar across the complete temperature range, and a temperature controller is included for temperature management.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_1_attoDRY2100.pdf",
+        "chunk_index": 19,
+        "page": 1,
+        "source": "07_Specs_1_attoDRY2100.pdf"
+      },
+      {
+        "doc_id": "07_Specs_1_attoDRY2100.pdf",
+        "chunk_index": 3,
+        "page": 1,
+        "source": "07_Specs_1_attoDRY2100.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_020",
+    "question": "According to the document 'UHD010324 - Loud noise from the scroll pump.docx.pdf', when did attocube support send the communication offering a refurbished unit to address the loud noise from the scroll pump?",
+    "reference_answer": "attocube support sent the communication on Wed, Sep 4, 2024, at 12:39 AM.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD010324 - Loud noise from the scroll pump.docx.pdf",
+        "chunk_index": 35,
+        "page": 4,
+        "source": "UHD010324 - Loud noise from the scroll pump.docx.pdf"
+      },
+      {
+        "doc_id": "UHD010324 - Loud noise from the scroll pump.docx.pdf",
+        "chunk_index": 25,
+        "page": 3,
+        "source": "UHD010324 - Loud noise from the scroll pump.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_021",
+    "question": "Considering the operational step of pumping the OVC before initiating cooling down, what specific type of high-vacuum fitting was purchased to address gauge issues in the system?",
+    "reference_answer": "A KF adapter (Quick-Clamp High-Vacuum Fitting, for Stainless Steel) was purchased to work on gauge issues, which is relevant for a system that requires pumping the OVC before cooling down.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 269,
+        "page": 23,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      },
+      {
+        "doc_id": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf",
+        "chunk_index": 386,
+        "page": 29,
+        "source": "UHD009344 - Urgent not achieving base temperature + inlet pressure gauge fault.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_022",
+    "question": "What is Emilio Codecido's professional role at attocube systems, Inc., and what is the email address of the individual who sent him an email on August 12, 2025?",
+    "reference_answer": "Emilio Codecido is the Regional Sales Manager Cryogenic Instruments at attocube systems, Inc. He received an email from DBlach@lbl.gov on August 12, 2025.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf",
+        "chunk_index": 52,
+        "page": 6,
+        "source": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf"
+      },
+      {
+        "doc_id": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf",
+        "chunk_index": 38,
+        "page": 4,
+        "source": "UHD__Attocube2025___and__CONVERT__2025-09-17.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_023",
+    "question": "Given the cryostat was unable to reach its base temperature, what was the reported compressor pressure at room temperature?",
+    "reference_answer": "The compressor read 225 psi at room temperature.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 87,
+        "page": 7,
+        "source": "Attocube past issues.pdf"
+      },
+      {
+        "doc_id": "Attocube past issues.pdf",
+        "chunk_index": 41,
+        "page": 6,
+        "source": "Attocube past issues.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_024",
+    "question": "What are the recommended mounting procedures for the SR200 Sample Carrier, which is specified to fit UC200 cells?",
+    "reference_answer": "For the SR200 Sample Carrier, which is designed to fit UC200 cells, the recommended mounting procedures include keeping the mating faces clean and free of debris, and placing the carrier in the same orientation each time.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 0,
+        "page": 1,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      },
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 29,
+        "page": 3,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_025",
+    "question": "Beyond the available superconducting magnet solenoids, what features of the attoDRY2100 system are designed to enhance user interaction and operational stability?",
+    "reference_answer": "The attoDRY2100 system enhances user interaction through a touchscreen and USB interface, and ensures operational stability with a proprietary low vibration and acoustic noise damping system.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "07_Specs_1_attoDRY2100.pdf",
+        "chunk_index": 18,
+        "page": 1,
+        "source": "07_Specs_1_attoDRY2100.pdf"
+      },
+      {
+        "doc_id": "07_Specs_1_attoDRY2100.pdf",
+        "chunk_index": 6,
+        "page": 1,
+        "source": "07_Specs_1_attoDRY2100.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_026",
+    "question": "If the APS100 system is already controlling the field, which button should be pressed to maintain that control, and which button is subsequently used to record quench data?",
+    "reference_answer": "To maintain control of the field, button 3 should be pressed again. To record quench data, the 'QUENCH DATA' button should be pressed.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "In_depth_APS100_Settings_214490.pdf",
+        "chunk_index": 35,
+        "page": 20,
+        "source": "In_depth_APS100_Settings_214490.pdf"
+      },
+      {
+        "doc_id": "In_depth_APS100_Settings_214490.pdf",
+        "chunk_index": 43,
+        "page": 23,
+        "source": "In_depth_APS100_Settings_214490.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_027",
+    "question": "According to the document, what temperature state is required for the attocube system before installing the liquid nitrogen cold trap?",
+    "reference_answer": "The system needs to have been at room temperature before installing the liquid nitrogen cold trap.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "UHD010642 - Update on our attocube system.docx.pdf",
+        "chunk_index": 36,
+        "page": 3,
+        "source": "UHD010642 - Update on our attocube system.docx.pdf"
+      },
+      {
+        "doc_id": "UHD010642 - Update on our attocube system.docx.pdf",
+        "chunk_index": 11,
+        "page": 1,
+        "source": "UHD010642 - Update on our attocube system.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_028",
+    "question": "What specific component, mentioned on page 1 of the AttoDRY Microscope SOP, is part of the system primarily used for magneto-optical measurements at variable temperatures in rooms 62-145 and 62-141?",
+    "reference_answer": "The Nitrogen Cold Trap.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "AttoDRY Microscope SOP June 2025 v3.docx.pdf",
+        "chunk_index": 12,
+        "page": 1,
+        "source": "AttoDRY Microscope SOP June 2025 v3.docx.pdf"
+      },
+      {
+        "doc_id": "AttoDRY Microscope SOP June 2025 v3.docx.pdf",
+        "chunk_index": 29,
+        "page": 2,
+        "source": "AttoDRY Microscope SOP June 2025 v3.docx.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "multihop_029",
+    "question": "Considering the critical requirement that the top of the sample must stick up from the uppermost surface of the device, what role do the SP200 Replacement sample mounting plates likely play?",
+    "reference_answer": "The SP200 Replacement sample mounting plates likely serve to ensure that the sample's top can protrude as required, potentially by offering a design that accommodates this need where other \"normal\" mounting plates might not, thus addressing the constraint mentioned in Passage 2.",
+    "category": "multi_hop",
+    "source_chunks": [
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 59,
+        "page": 7,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      },
+      {
+        "doc_id": "SR200 Datasheet v1-2 Web.pdf",
+        "chunk_index": 48,
+        "page": 5,
+        "source": "SR200 Datasheet v1-2 Web.pdf"
+      }
+    ],
+    "expected_db": "fine",
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_000",
+    "question": "What emails discuss temperature issues?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "doc_type_filter",
+    "expected_behavior": "should_filter_emails",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_001",
+    "question": "details about the serial number",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "specific_keyword",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_002",
+    "question": "continue",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_001",
+    "turn_order": 2
+  },
+  {
+    "id": "edge_003",
+    "question": "tell me about the cryostat",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_general",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_004",
+    "question": "What are the voltage specs?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "specific_short",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_005",
+    "question": "How do I order replacement parts from Amazon?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "out_of_scope",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_006",
+    "question": "Tell me more about that",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_001",
+    "turn_order": 3
+  },
+  {
+    "id": "edge_007",
+    "question": "How do I install the model 5000 compressor?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "procedural_with_model",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_001",
+    "turn_order": 1
+  },
+  {
+    "id": "edge_008",
+    "question": "?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_009",
+    "question": "Can you elaborate?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_002",
+    "turn_order": 2
+  },
+  {
+    "id": "edge_010",
+    "question": "What is the temperature?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "ambiguous_but_specific_word",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_011",
+    "question": "what",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_012",
+    "question": "help",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_013",
+    "question": "info",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_014",
+    "question": "What color is the cryostat's unicorn logo?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "unanswerable",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_015",
+    "question": "What is the serial number of the flux capacitor?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "unanswerable",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_016",
+    "question": "specs",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_017",
+    "question": "explain",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_018",
+    "question": "What else?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_002",
+    "turn_order": 3
+  },
+  {
+    "id": "edge_019",
+    "question": "How do I set up the system?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "procedural_general",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null,
+    "conversation_id": "conv_002",
+    "turn_order": 1
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "edge_000",
+    "question": "How do I install the model 5000 compressor?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "procedural_with_model",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_001",
+    "question": "explain",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_002",
+    "question": "tell me about the cryostat",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_general",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_003",
+    "question": "How do I order replacement parts from Amazon?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "out_of_scope",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_004",
+    "question": "How do I set up the system?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "procedural_general",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_005",
+    "question": "What are the voltage specs?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "specific_short",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_006",
+    "question": "details about the serial number",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "specific_keyword",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_007",
+    "question": "specs",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_008",
+    "question": "?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_009",
+    "question": "what",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_010",
+    "question": "info",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_011",
+    "question": "continue",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_012",
+    "question": "Tell me more about that",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_013",
+    "question": "What emails discuss temperature issues?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "doc_type_filter",
+    "expected_behavior": "should_filter_emails",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_014",
+    "question": "Can you elaborate?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_015",
+    "question": "help",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "vague_single_word",
+    "expected_behavior": "should_clarify",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_016",
+    "question": "What color is the cryostat's unicorn logo?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "unanswerable",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_017",
+    "question": "What is the temperature?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "ambiguous_but_specific_word",
+    "expected_behavior": "should_answer",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_018",
+    "question": "What else?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "follow_up_no_context",
+    "expected_behavior": "follow_up",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  },
+  {
+    "id": "edge_019",
+    "question": "What is the serial number of the flux capacitor?",
+    "reference_answer": null,
+    "category": "edge_case",
+    "subcategory": "unanswerable",
+    "expected_behavior": "should_not_hallucinate",
+    "source_chunks": [],
+    "expected_db": null,
+    "expected_doc_type": null
+  }
+]

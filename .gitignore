@@ -3,3 +3,7 @@ chroma_db/
 pdfs/
 venv/
 .env
+.vscode/
+.eval_data/
+evaluation/outputs/
+.claude/
