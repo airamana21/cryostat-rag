@@ -7,3 +7,5 @@ venv/
 .eval_data/
 evaluation/outputs/
 .claude/
+eval/pdf_cache
+eval/.rag_store

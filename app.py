@@ -108,8 +108,22 @@ def _start_background_rag_task():
         rag_background_thread = threading.Thread(target=_background_verify_or_rebuild, daemon=True)
         rag_background_thread.start()
 
-# Kick off background verification on cold start
+# Kick off background verification on cold start (works for single-process / local dev)
 _start_background_rag_task()
+
+# Gunicorn forks worker processes from the master; daemon threads do not survive fork.
+# This hook guarantees the background task starts within the first request handled by
+# any worker process, regardless of how gunicorn spawns it.
+_worker_init_done = False
+
+@app.before_request
+def _ensure_worker_init():
+    global _worker_init_done
+    if not _worker_init_done:
+        with rag_thread_lock:
+            if not _worker_init_done:
+                _worker_init_done = True
+                _start_background_rag_task()
 
 def ensure_rag_initialized():
     """Ensure RAG system is initialized"""
@@ -328,7 +342,8 @@ def chat():
             'response': result['answer'],
             'sources': result['sources'],
             'images': images_b64,
-            'debug_info': result['debug_info']
+            'debug_info': result['debug_info'],
+            'needs_clarification': result.get('needs_clarification', False)
         })
     except Exception as e:
         # Clear status on error

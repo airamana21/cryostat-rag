@@ -18,11 +18,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.vectorstores.utils import filter_complex_metadata
 
-try:
-    from sentence_transformers import CrossEncoder
-    CROSS_ENCODER_AVAILABLE = True
-except ImportError:
-    CROSS_ENCODER_AVAILABLE = False
+from google.cloud import discoveryengine_v1 as discoveryengine
 
 from langchain.embeddings.base import Embeddings
 from langchain.llms.base import LLM
@@ -50,11 +46,22 @@ CONTEXT_WINDOW_SIZE  = 3  # Number of previous queries to keep chunks for
 EXPAND_CONTEXT_BEFORE = int(os.getenv("EXPAND_CONTEXT_BEFORE", "1"))
 EXPAND_CONTEXT_AFTER = int(os.getenv("EXPAND_CONTEXT_AFTER", "2"))
 
-# Cross-encoder reranking
-CROSS_ENCODER_MODEL = os.getenv("CROSS_ENCODER_MODEL", "mixedbread-ai/mxbai-rerank-base-v1")
-USE_RERANKING = os.getenv("USE_RERANKING", "true").lower() == "true"
-RERANK_TOP_N = int(os.getenv("RERANK_TOP_N", "8"))
-EMBED_BATCH_SIZE = int(os.getenv("EMBED_BATCH_SIZE", "5"))
+# Vertex AI Ranking API reranking
+USE_RERANKING     = os.getenv("USE_RERANKING", "true").lower() == "true"
+RERANK_TOP_N      = int(os.getenv("RERANK_TOP_N", "8"))
+RERANK_MODEL      = os.getenv("RERANK_MODEL", "semantic-ranker-fast-004")
+_MAX_RECORD_CHARS = 3800  # ~1024-token safety truncation per API record
+_MAX_RERANK_DOCS  = 200   # API hard limit per request
+EMBED_BATCH_SIZE  = int(os.getenv("EMBED_BATCH_SIZE", "5"))
+
+# ─── Ablation / configuration toggles ────────────────────────────────────────
+# Production defaults preserve the full pipeline. The evaluation harness
+# monkeypatches these per variant (see eval/pipeline.py) to isolate the
+# contribution of each component; they are also overridable by environment var.
+RETRIEVAL_MODE        = os.getenv("RETRIEVAL_MODE", "hybrid")  # hybrid | dense | bm25
+USE_QUERY_ROUTING     = os.getenv("USE_QUERY_ROUTING", "true").lower() == "true"
+USE_CONTEXT_EXPANSION = os.getenv("USE_CONTEXT_EXPANSION", "true").lower() == "true"
+USE_DOMAIN_PROMPT     = os.getenv("USE_DOMAIN_PROMPT", "true").lower() == "true"
 
 # GCS settings
 GCS_BUCKET_NAME = os.getenv("GCS_BUCKET_NAME", "attocube-rag-pdfs")
@@ -75,17 +82,6 @@ GLOBAL_IMAGE_STORAGE = {}
 
 # Global BM25 document store for hybrid retrieval
 GLOBAL_BM25_DOCS: List[Document] = []
-
-# Cross-encoder singleton (lazy-loaded on first use)
-_cross_encoder_instance = None
-
-def get_cross_encoder():
-    global _cross_encoder_instance
-    if _cross_encoder_instance is None and CROSS_ENCODER_AVAILABLE and USE_RERANKING:
-        print(f"Loading cross-encoder model: {CROSS_ENCODER_MODEL}")
-        _cross_encoder_instance = CrossEncoder(CROSS_ENCODER_MODEL)
-        print("Cross-encoder model loaded.")
-    return _cross_encoder_instance
 
 # ─── 3. LLM wrapper for Vertex AI Gemini ────────────────────────────────────
 class VertexAIGeminiLLM(LLM):
@@ -532,22 +528,74 @@ class ContextExpandingHybridRetriever:
         sorted_items = sorted(scores.values(), key=lambda x: x["score"], reverse=True)
         return [item["doc"] for item in sorted_items]
 
+    def _is_procedural(self, query: str) -> bool:
+        """Keyword/prefix routing to the coarse index. Disabled when USE_QUERY_ROUTING is off."""
+        if not USE_QUERY_ROUTING:
+            return False
+        lower_q = query.lower()
+        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
+                       "how should ", "how would ", "how can ", "how could ", "how must ")
+        return (
+            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
+            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
+        )
+
+    def _fine_fuse(self, query: str) -> List[Document]:
+        """Fine-index retrieval honoring RETRIEVAL_MODE (hybrid | dense | bm25)."""
+        dense_docs = (self.fine_retriever.get_relevant_documents(query)
+                      if RETRIEVAL_MODE in ("hybrid", "dense") else [])
+        bm25_docs = (self.bm25_retriever.get_relevant_documents(query)
+                     if self.bm25_retriever and RETRIEVAL_MODE in ("hybrid", "bm25") else [])
+        if RETRIEVAL_MODE == "dense":
+            return dense_docs
+        if RETRIEVAL_MODE == "bm25":
+            return bm25_docs
+        if bm25_docs:
+            return self._reciprocal_rank_fusion([dense_docs, bm25_docs])
+        return dense_docs
+
     def rerank(self, query: str, docs: List[Document], top_n: int = None) -> List[Document]:
-        """Rerank docs with cross-encoder; falls back gracefully if unavailable."""
+        """Rerank docs via Vertex AI Ranking API; falls back gracefully on error."""
+        if not USE_RERANKING or not docs:
+            return docs
         if top_n is None:
             top_n = RERANK_TOP_N
-        ce = get_cross_encoder()
-        if ce is None or len(docs) <= top_n:
-            return docs[:top_n] if len(docs) > top_n else docs
-        pairs = [(query, doc.page_content) for doc in docs]
-        scores = ce.predict(pairs)
-        ranked = sorted(zip(scores, docs), key=lambda x: x[0], reverse=True)
-        # Drop chunks the cross-encoder considers irrelevant; always keep at least one
-        filtered = [(s, d) for s, d in ranked if s > -5.0] or [ranked[0]]
-        return [doc for _, doc in filtered[:top_n]]
+        if len(docs) <= top_n:
+            return docs
+
+        candidates = docs[:_MAX_RERANK_DOCS]
+        client = discoveryengine.RankServiceClient()
+        ranking_config = (
+            f"projects/{PROJECT_ID}/locations/global"
+            "/rankingConfigs/default_ranking_config"
+        )
+        records = [
+            discoveryengine.RankingRecord(
+                id=str(i),
+                content=doc.page_content[:_MAX_RECORD_CHARS],
+            )
+            for i, doc in enumerate(candidates)
+        ]
+        try:
+            response = client.rank(
+                discoveryengine.RankRequest(
+                    ranking_config=ranking_config,
+                    model=RERANK_MODEL,
+                    query=query,
+                    records=records,
+                    top_n=top_n,
+                )
+            )
+            id_map = {str(i): doc for i, doc in enumerate(candidates)}
+            return [id_map[r.id] for r in response.records if r.id in id_map]
+        except Exception as e:
+            print(f"Reranking API error (falling back to unranked top-{top_n}): {e}")
+            return docs[:top_n]
     
     def expand_context(self, docs: List[Document], db: Chroma, before: int = 1, after: int = 2) -> List[Document]:
         """Expand context by including neighboring chunks"""
+        if not USE_CONTEXT_EXPANSION:
+            return docs
         expanded_docs = []
         seen_chunks = set()
         
@@ -609,16 +657,7 @@ class ContextExpandingHybridRetriever:
         Procedural queries use coarse-only dense retrieval since BM25 is indexed
         from fine chunks and cannot be correctly expanded against the coarse DB.
         """
-        lower_q = query.lower()
-
-        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
-                       "how should ", "how would ", "how can ", "how could ", "how must ")
-        procedural = (
-            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
-            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
-        )
-
-        if procedural:
+        if self._is_procedural(query):
             # Coarse dense retrieval only — BM25 (fine-indexed) would mismatch coarse expansion
             docs = self.coarse_retriever.get_relevant_documents(query)
             expanded = self.expand_context(
@@ -629,12 +668,7 @@ class ContextExpandingHybridRetriever:
             )
         else:
             # Factual: BM25+dense hybrid over fine DB
-            dense_docs = self.fine_retriever.get_relevant_documents(query)
-            if self.bm25_retriever:
-                bm25_docs = self.bm25_retriever.get_relevant_documents(query)
-                fused = self._reciprocal_rank_fusion([dense_docs, bm25_docs])
-            else:
-                fused = dense_docs
+            fused = self._fine_fuse(query)
             expanded = self.expand_context(
                 fused,
                 self.fine_db,
@@ -643,19 +677,10 @@ class ContextExpandingHybridRetriever:
             )
 
         return expanded
-    
+
     def get_relevant_documents_by_type(self, query: str, doc_type: str = None) -> List[Document]:
         """Retrieval method with optional document type filtering"""
-        lower_q = query.lower()
-        
-        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
-                       "how should ", "how would ", "how can ", "how could ", "how must ")
-        procedural = (
-            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
-            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
-        )
-        
-        if procedural:
+        if self._is_procedural(query):
             if doc_type:
                 # Use filtered retriever for specific document types
                 docs = self._get_filtered_documents(query, self.coarse_db, doc_type, k=2)
@@ -689,24 +714,11 @@ class ContextExpandingHybridRetriever:
         if after is None:
             after = EXPAND_CONTEXT_AFTER
 
-        lower_q = query.lower()
-        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
-                       "how should ", "how would ", "how can ", "how could ", "how must ")
-        procedural = (
-            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
-            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
-        )
-
-        if procedural:
+        if self._is_procedural(query):
             docs = self.coarse_retriever.get_relevant_documents(query)
             expanded = self.expand_context(docs, self.coarse_db, before=before, after=after + 1)
         else:
-            dense_docs = self.fine_retriever.get_relevant_documents(query)
-            if self.bm25_retriever:
-                bm25_docs = self.bm25_retriever.get_relevant_documents(query)
-                fused = self._reciprocal_rank_fusion([dense_docs, bm25_docs])
-            else:
-                fused = dense_docs
+            fused = self._fine_fuse(query)
             expanded = self.expand_context(fused, self.fine_db, before=before, after=after)
 
         return expanded
@@ -717,17 +729,8 @@ class ContextExpandingHybridRetriever:
             before = EXPAND_CONTEXT_BEFORE
         if after is None:
             after = EXPAND_CONTEXT_AFTER
-            
-        lower_q = query.lower()
-        
-        _HOW_ACTION = ("how to ", "how do ", "how does ", "how did ",
-                       "how should ", "how would ", "how can ", "how could ", "how must ")
-        procedural = (
-            any(k in lower_q for k in ["procedure", "steps", "process", "install", "setup"])
-            or any(lower_q.startswith(p) or f" {p}" in lower_q for p in _HOW_ACTION)
-        )
-        
-        if procedural:
+
+        if self._is_procedural(query):
             if doc_type:
                 docs = self._get_filtered_documents(query, self.coarse_db, doc_type, k=2)
             else:
@@ -941,7 +944,33 @@ def verify_or_rebuild_rag(status_callback=None) -> Tuple[ContextExpandingHybridR
 # ─── 8. Query processing function for API ────────────────────────────────────
 def process_query(query: str, retriever, llm, conversation_history, debug_mode: bool = False, status_callback=None):
     """Process a single query and return response with optional debug info"""
-    
+
+    # Vagueness / clarification branch.
+    # A query is treated as a contextual follow-up only when there is prior history to
+    # resolve it against; otherwise a one-word query like "what" has nothing to follow up.
+    is_contextual_followup = is_follow_up_query(query) and len(conversation_history.messages) > 0
+
+    if conversation_history.awaiting_clarification:
+        # This turn is the user's reply to a clarifying question — resume normal retrieval.
+        conversation_history.clear_clarification_mode()
+    elif needs_clarification(query) and not is_contextual_followup:
+        # Too vague to retrieve against, and not a follow-up: ask once instead of guessing.
+        clarifying = (
+            "Could you give me a bit more detail so I can find the right information? "
+            "For example, name the instrument or component you're asking about "
+            "(e.g., attoDRY2100, ANC300, magnet power supply) and what you'd like to know."
+        )
+        conversation_history.set_clarification_mode(query)
+        conversation_history.add_user_message(query)
+        conversation_history.add_ai_message(clarifying)
+        return {
+            "answer": clarifying,
+            "sources": [],
+            "images": [],
+            "debug_info": None,
+            "needs_clarification": True,
+        }
+
     if status_callback:
         status_callback("searching", "Searching knowledge base...")
     
@@ -1033,8 +1062,10 @@ Reformulated question (be specific and include context from the conversation):""
     print(f"DEBUG: Context expansion - Before: {EXPAND_CONTEXT_BEFORE + (1 if is_followup else 0)}, After: {EXPAND_CONTEXT_AFTER + (1 if is_followup else 0)}")
     print(f"DEBUG: Retrieved {len(docs)} documents before reranking")
 
-    # Cross-encoder reranking: score all candidates and keep top-N most relevant
+    # Vertex AI reranking: score all candidates and keep top-N most relevant
     if hasattr(retriever, "rerank"):
+        if status_callback:
+            status_callback("reranking", "Reranking results...")
         docs = retriever.rerank(effective_query, docs)
         print(f"DEBUG: {len(docs)} documents after reranking")
 
@@ -1113,8 +1144,19 @@ Reformulated question (be specific and include context from the conversation):""
     else:
         print(f"DEBUG: Context contains data from {len(docs)} documents")
     
-    # Create prompt template without f-string formatting to preserve template variables
-    system_message = """You are an expert technical assistant for the attoDRY cryostat system and related laboratory instruments (attoDRY2100, ANC300 positioners, FlexPositioners, magnet power supplies, and associated equipment).
+    # Create prompt template without f-string formatting to preserve template variables.
+    # The generic prompt is the ablation baseline (USE_DOMAIN_PROMPT=False); production
+    # uses the domain-specific prompt below.
+    if not USE_DOMAIN_PROMPT:
+        system_message = """You are a helpful assistant. Answer the user's question using the provided context.
+
+Current Context:
+{context}
+
+Previous Context (if relevant):
+{previous_context}"""
+    else:
+        system_message = """You are an expert technical assistant for the attoDRY cryostat system and related laboratory instruments (attoDRY2100, ANC300 positioners, FlexPositioners, magnet power supplies, and associated equipment).
 
 Your knowledge comes exclusively from the retrieved context below — a curated set of equipment manuals, specification sheets, and technical support communications.
 
@@ -1194,5 +1236,7 @@ Previous Context (if relevant):
         "answer": answer,
         "sources": sources,
         "images": images,
-        "debug_info": debug_info
+        "debug_info": debug_info,
+        "needs_clarification": False,
+        "retrieved_docs": docs
     }

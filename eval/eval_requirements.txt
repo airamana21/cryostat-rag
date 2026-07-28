@@ -1,0 +1,8 @@
+# Local-only evaluation dependencies
+# Install with: pip install -r eval/eval_requirements.txt
+# These are NOT added to requirements.txt (production) or the Dockerfile.
+
+pandas>=2.0
+scipy>=1.11
+matplotlib>=3.8
+tqdm>=4.66
