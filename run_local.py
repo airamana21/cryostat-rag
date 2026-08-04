@@ -12,7 +12,14 @@ def main():
     os.environ["LOCAL_DEV_MODE"] = "true"
     os.environ["FLASK_ENV"] = "development"
     os.environ["FLASK_DEBUG"] = "1"
-    
+
+    # Persist the vector store under the repo (./data) instead of the Cloud Run
+    # default /var/lib/cryostat-rag, which is not writable locally. Without this
+    # the build can never persist, so every restart re-downloads and re-embeds.
+    repo_dir = os.path.dirname(os.path.abspath(__file__))
+    os.environ.setdefault("VECTORSTORE_BASE_DIR", os.path.join(repo_dir, "data"))
+    print(f"• Vector store dir: {os.environ['VECTORSTORE_BASE_DIR']}")
+
     # Set default GCP project if not already set
     if not os.environ.get("GCP_PROJECT_ID"):
         print("Warning: GCP_PROJECT_ID not set. You may need to set this for the RAG system to work.")
@@ -38,12 +45,19 @@ def main():
         print("Press Ctrl+C to stop the server")
         print("=" * 60)
         
-        # Run the Flask app
+        # Run the Flask app.
+        # - threaded=True: the /status/<id> SSE endpoint holds a long-lived
+        #   connection in an infinite loop, which would otherwise block every
+        #   other request on the single-threaded dev server.
+        # - use_reloader=False: the reloader restarts the process (and re-runs the
+        #   knowledge-base build) on every file change, and runs the build in two
+        #   processes at once. Disabling it lets a build finish and persist once.
         app.run(
             host='127.0.0.1',
             port=5000,
             debug=True,
-            use_reloader=True
+            use_reloader=False,
+            threaded=True
         )
     except KeyboardInterrupt:
         print("\n" + "=" * 60)

@@ -12,7 +12,7 @@ required_packages = [
     'google.auth',
     'google.oauth2',
     'google.cloud.storage',
-    'vertexai',
+    'google.genai',
     'langchain',
     'langchain_community',
     'langchain_chroma',

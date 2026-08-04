@@ -41,7 +41,7 @@ print(f"LOCAL_DEV_MODE: {LOCAL_DEV_MODE}")
 
 # Global RAG components (initialized lazily)
 retriever = None
-llm = None
+llms = None
 conversations = {}  # Store conversations per session
 rag_initialized = False
 initialization_error = None
@@ -74,18 +74,18 @@ def _set_rag_state(status: str, message: str = None, build_in_progress: bool = N
         rag_state["last_checked"] = time.time()
 
 def _background_verify_or_rebuild():
-    global retriever, llm, rag_initialized, initialization_error
+    global retriever, llms, rag_initialized, initialization_error
     _set_rag_state("updating", "Checking for document updates...", build_in_progress=True)
     try:
         def status_callback(status, msg=None):
             _set_rag_state("updating", msg or status, build_in_progress=True)
 
         sync_vectorstore_from_gcs()
-        new_retriever, new_llm, info = verify_or_rebuild_rag(status_callback=status_callback)
+        new_retriever, new_llms, info = verify_or_rebuild_rag(status_callback=status_callback)
 
         with rag_init_lock:
             retriever = new_retriever
-            llm = new_llm
+            llms = new_llms
             rag_initialized = True
             initialization_error = None
             rag_state["last_build_time"] = time.time()
@@ -127,7 +127,7 @@ def _ensure_worker_init():
 
 def ensure_rag_initialized():
     """Ensure RAG system is initialized"""
-    global retriever, llm, rag_initialized, initialization_error
+    global retriever, llms, rag_initialized, initialization_error
     if rag_initialized:
         return
 
@@ -139,10 +139,10 @@ def ensure_rag_initialized():
 
         # Fast path: load existing vectorstore from volume (no GCS checks)
         sync_vectorstore_from_gcs()
-        loaded_retriever, loaded_llm, loaded = load_rag_if_available()
+        loaded_retriever, loaded_llms, loaded = load_rag_if_available()
         if loaded:
             retriever = loaded_retriever
-            llm = loaded_llm
+            llms = loaded_llms
             rag_initialized = True
             _set_rag_state("ready", "Knowledge base loaded from volume", build_in_progress=False)
             # Verify/update in background
@@ -316,7 +316,7 @@ def chat():
         update_status(session_id, "initializing", "Processing your question...")
         
         # Process the query with status updates
-        result = process_query(query, retriever, llm, conversation_history, debug_mode, 
+        result = process_query(query, retriever, llms, conversation_history, debug_mode, 
                              status_callback=lambda status, msg=None: update_status(session_id, status, msg))
         
         # Clear status when done

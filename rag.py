@@ -5,9 +5,11 @@ import hashlib
 import pickle
 from datetime import datetime
 from typing import Any, List, Tuple, Set, Dict, Optional
-import vertexai
-from vertexai.generative_models import GenerativeModel, ChatSession
-from vertexai.language_models import TextEmbeddingModel
+
+# Google Gen AI SDK (replaces the removed vertexai.generative_models /
+# vertexai.language_models modules, retired June 24, 2026).
+from google import genai
+from google.genai import types
 from google.cloud import storage
 import fitz  # PyMuPDF for image detection
 
@@ -29,10 +31,26 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
 
-# ─── 1. Initialize Vertex AI ─────────────────────────────────────────────────
+# ─── 1. Initialize Vertex AI (Google Gen AI SDK, Vertex backend) ─────────────
 PROJECT_ID = os.getenv("GCP_PROJECT_ID", "mf-crucible")
 LOCATION = os.getenv("GCP_LOCATION", "us-central1")
-vertexai.init(project=PROJECT_ID, location=LOCATION)
+
+# Generation uses gemini-3.6-flash and gemini-3.6-pro: the fastest current
+# models, and higher-scoring than the retiring gemini-2.5-pro
+# (Vertex retirement 2026-10-16). Embeddings stay on text-embedding-005 — it is
+# NOT deprecated (only the old vertexai.language_models SDK module was removed),
+# so keeping it avoids a vector-store rebuild and any embedding drift.
+# All overridable via environment for easy A/B testing.
+GEMINI_FLASH_MODEL = os.getenv("GEMINI_FLASH_MODEL", "gemini-3.6-flash")
+GEMINI_PRO_MODEL = os.getenv("GEMINI_PRO_MODEL", "gemini-3.6-pro")
+EMBED_MODEL  = os.getenv("EMBED_MODEL", "text-embedding-005")
+
+# gemini-3.6-flash is currently served only from the global endpoint (regional
+# endpoints like us-central1 return 404), while text-embedding-005 is regional.
+# Hence two clients, one per endpoint.
+GEMINI_LOCATION = os.getenv("GEMINI_LOCATION", "global")
+gen_client   = genai.Client(vertexai=True, project=PROJECT_ID, location=GEMINI_LOCATION)
+embed_client = genai.Client(vertexai=True, project=PROJECT_ID, location=LOCATION)
 
 # ─── 2. Chunking parameters ─────────────────────────────────────────────────
 FINE_CHUNK_SIZE      = int(os.getenv("CHUNK_SIZE", "600"))
@@ -52,7 +70,7 @@ RERANK_TOP_N      = int(os.getenv("RERANK_TOP_N", "8"))
 RERANK_MODEL      = os.getenv("RERANK_MODEL", "semantic-ranker-fast-004")
 _MAX_RECORD_CHARS = 3800  # ~1024-token safety truncation per API record
 _MAX_RERANK_DOCS  = 200   # API hard limit per request
-EMBED_BATCH_SIZE  = int(os.getenv("EMBED_BATCH_SIZE", "5"))
+EMBED_BATCH_SIZE  = int(os.getenv("EMBED_BATCH_SIZE", "20"))
 
 # ─── Ablation / configuration toggles ────────────────────────────────────────
 # Production defaults preserve the full pipeline. The evaluation harness
@@ -85,48 +103,46 @@ GLOBAL_BM25_DOCS: List[Document] = []
 
 # ─── 3. LLM wrapper for Vertex AI Gemini ────────────────────────────────────
 class VertexAIGeminiLLM(LLM):
-    model: Optional[GenerativeModel] = None  # Add default value
-    model_name: str = "gemini-2.5-pro"
-    
+    model_name: str = GEMINI_FLASH_MODEL
+
     def __init__(self, model_name: str = None):
         super().__init__()
         if model_name:
             self.model_name = model_name
-        self.model = GenerativeModel(self.model_name)
-    
+
     @property
     def _llm_type(self) -> str:
         return "vertex-ai-gemini"
-    
+
     def _call(self, prompt: str, stop=None) -> str:
-        response = self.model.generate_content(
-            prompt,
-            generation_config={
-                "temperature": 0.0,
-                "max_output_tokens": 4096,
-            }
+        response = gen_client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.0,
+                max_output_tokens=4096,
+            ),
         )
         return response.text
 
 # ─── 4. Embeddings wrapper for Vertex AI ─────────────────────────────────────
 class VertexAIEmbeddings(Embeddings):
-    model: TextEmbeddingModel
-    model_name: str = "text-embedding-005"
-    
     def __init__(self, model_name: str = None):
-        if model_name:
-            self.model_name = model_name
-        self.model = TextEmbeddingModel.from_pretrained(self.model_name)
-    
-    def embed_documents(self, texts: List[str]) -> List[List[float]]:
-        import time
-        embeddings = []
+        self.model_name = model_name or EMBED_MODEL
+
+    def _embed(self, texts: List[str]) -> List[List[float]]:
+        # Plain (untyped) embeddings via the Gen AI SDK, matching the original
+        # text-embedding-005 output exactly so the existing vector store stays valid.
+        embeddings: List[List[float]] = []
         for i in range(0, len(texts), EMBED_BATCH_SIZE):
             batch = texts[i : i + EMBED_BATCH_SIZE]
             for attempt in range(5):
                 try:
-                    batch_embeddings = self.model.get_embeddings(batch)
-                    embeddings.extend([emb.values for emb in batch_embeddings])
+                    resp = embed_client.models.embed_content(
+                        model=self.model_name,
+                        contents=batch,
+                    )
+                    embeddings.extend(list(e.values) for e in resp.embeddings)
                     break
                 except Exception as e:
                     if "ResourceExhausted" in type(e).__name__ or "429" in str(e):
@@ -137,28 +153,19 @@ class VertexAIEmbeddings(Embeddings):
                         raise
             else:
                 raise RuntimeError(f"Embedding batch {i // EMBED_BATCH_SIZE} failed after 5 retries")
-            time.sleep(0.5)
         return embeddings
 
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        return self._embed(texts)
+
     def embed_query(self, text: str) -> List[float]:
-        import time
-        for attempt in range(5):
-            try:
-                return self.model.get_embeddings([text])[0].values
-            except Exception as e:
-                if "ResourceExhausted" in type(e).__name__ or "429" in str(e):
-                    wait = (2 ** attempt) + 1
-                    print(f"Embedding rate-limited (attempt {attempt+1}/5), retrying in {wait}s...")
-                    time.sleep(wait)
-                else:
-                    raise
-        raise RuntimeError("embed_query failed after 5 retries")
+        return self._embed([text])[0]
 
 # ─── 5. GCS PDF Loading ──────────────────────────────────────────────────────
 def download_pdfs_from_gcs(bucket_name: str, prefix: str, local_dir: str = "pdfs"):
     """Download PDFs from GCS to local directory"""
     os.makedirs(local_dir, exist_ok=True)
-    client = storage.Client()
+    client = storage.Client(project=PROJECT_ID)
     bucket = client.bucket(bucket_name)
     
     # List and download all PDFs
@@ -178,13 +185,6 @@ def download_pdfs_from_gcs(bucket_name: str, prefix: str, local_dir: str = "pdfs
 def _ensure_dir(path: str):
     os.makedirs(path, exist_ok=True)
 
-def _compute_sha256_for_blob(blob) -> str:
-    hasher = hashlib.sha256()
-    with blob.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            hasher.update(chunk)
-    return hasher.hexdigest()
-
 def _compute_sha256_for_file(path: str) -> str:
     hasher = hashlib.sha256()
     with open(path, "rb") as f:
@@ -193,19 +193,28 @@ def _compute_sha256_for_file(path: str) -> str:
     return hasher.hexdigest()
 
 def compute_manifest_from_gcs(bucket_name: str, prefix: str, status_callback=None) -> Dict[str, Any]:
-    """Compute a full hash manifest for PDFs in GCS."""
-    client = storage.Client()
+    """Compute a change-detection manifest for PDFs in GCS.
+
+    Uses the content fingerprint GCS already returns in the object listing
+    (``md5_hash``, falling back to ``generation``) instead of streaming each
+    file to hash it. A single list_blobs call is enough to detect changes, so a
+    cold start no longer downloads every PDF just to fingerprint it.
+    """
+    if status_callback:
+        status_callback("verifying", "Checking for document updates...")
+    client = storage.Client(project=PROJECT_ID)
     bucket = client.bucket(bucket_name)
     blobs = [b for b in bucket.list_blobs(prefix=prefix) if b.name.endswith('.pdf')]
 
     files = []
-    for i, blob in enumerate(sorted(blobs, key=lambda b: b.name)):
-        if status_callback:
-            status_callback("verifying", f"Hashing {os.path.basename(blob.name)} ({i+1}/{len(blobs)})")
-        file_hash = _compute_sha256_for_blob(blob)
+    for blob in sorted(blobs, key=lambda b: b.name):
+        # md5_hash is the base64 content hash from the listing metadata; if a
+        # bucket disables it (e.g. composite objects), generation still changes
+        # on every overwrite, so it is a sound fallback fingerprint.
+        fingerprint = blob.md5_hash or (str(blob.generation) if blob.generation else None)
         files.append({
             "name": os.path.basename(blob.name),
-            "sha256": file_hash,
+            "md5": fingerprint,
             "size": blob.size,
             "updated": blob.updated.isoformat() if blob.updated else None
         })
@@ -213,7 +222,7 @@ def compute_manifest_from_gcs(bucket_name: str, prefix: str, status_callback=Non
     manifest = {
         "bucket": bucket_name,
         "prefix": prefix,
-        "hash_algo": "sha256",
+        "hash_algo": "md5",
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "files": files
     }
@@ -297,7 +306,7 @@ def load_bm25_docs():
     print(f"Loaded {len(GLOBAL_BM25_DOCS)} docs for BM25 index.")
 
 def _download_prefix(bucket_name: str, prefix: str, local_dir: str):
-    client = storage.Client()
+    client = storage.Client(project=PROJECT_ID)
     bucket = client.bucket(bucket_name)
     _ensure_dir(local_dir)
     for blob in bucket.list_blobs(prefix=prefix):
@@ -309,7 +318,7 @@ def _download_prefix(bucket_name: str, prefix: str, local_dir: str):
         blob.download_to_filename(local_path)
 
 def _upload_dir(bucket_name: str, prefix: str, local_dir: str):
-    client = storage.Client()
+    client = storage.Client(project=PROJECT_ID)
     bucket = client.bucket(bucket_name)
     for root, _, files in os.walk(local_dir):
         for fname in files:
@@ -457,7 +466,7 @@ def _clear_directory(folder: str):
         if os.path.isfile(path):
             os.remove(path)
 
-def build_vectorstores_from_gcs(status_callback=None) -> Tuple[Chroma, Chroma, Dict[str, Any]]:
+def build_vectorstores_from_gcs(status_callback=None, manifest: Optional[Dict[str, Any]] = None) -> Tuple[Chroma, Chroma, Dict[str, Any]]:
     if status_callback:
         status_callback("downloading", "Downloading PDFs from storage...")
     _ensure_dir(PDF_CACHE_DIR)
@@ -474,7 +483,10 @@ def build_vectorstores_from_gcs(status_callback=None) -> Tuple[Chroma, Chroma, D
 
     save_image_storage()
     save_bm25_docs(fine_docs)
-    manifest = compute_manifest_from_gcs(GCS_BUCKET_NAME, GCS_PDF_PREFIX, status_callback=status_callback)
+    # Reuse the manifest computed during verification when available; only fall
+    # back to computing it here (one metadata listing, no downloads).
+    if manifest is None:
+        manifest = compute_manifest_from_gcs(GCS_BUCKET_NAME, GCS_PDF_PREFIX, status_callback=status_callback)
     save_manifest(manifest)
     sync_vectorstore_to_gcs()
     return fine_db, coarse_db, manifest
@@ -491,7 +503,9 @@ def verify_or_rebuild_vectorstores(status_callback=None) -> Tuple[Chroma, Chroma
     if needs_rebuild:
         if status_callback:
             status_callback("rebuilding", "Rebuilding knowledge base...")
-        fine_db, coarse_db, manifest = build_vectorstores_from_gcs(status_callback=status_callback)
+        fine_db, coarse_db, manifest = build_vectorstores_from_gcs(
+            status_callback=status_callback, manifest=new_manifest
+        )
         return fine_db, coarse_db, manifest, True
 
     fine_db, coarse_db, _ = load_vectorstores_if_present()
@@ -920,30 +934,34 @@ def initialize_rag_system(status_callback=None):
     print("Initializing RAG system (full rebuild)...")
     fine_db, coarse_db, _manifest = build_vectorstores_from_gcs(status_callback=status_callback)
     retriever = ContextExpandingHybridRetriever(fine_db, coarse_db)
-    llm = VertexAIGeminiLLM()
+    flash_llm = VertexAIGeminiLLM(GEMINI_FLASH_MODEL)
+    pro_llm = VertexAIGeminiLLM(GEMINI_PRO_MODEL)
     print("RAG system initialized successfully!")
-    return retriever, llm
+    return retriever, (flash_llm, pro_llm)
 
-def load_rag_if_available() -> Tuple[Optional[ContextExpandingHybridRetriever], Optional[VertexAIGeminiLLM], bool]:
+def load_rag_if_available() -> Tuple[Optional[ContextExpandingHybridRetriever], Optional[Tuple[VertexAIGeminiLLM, VertexAIGeminiLLM]], bool]:
     fine_db, coarse_db, loaded = load_vectorstores_if_present()
     if not loaded:
         return None, None, False
     retriever = ContextExpandingHybridRetriever(fine_db, coarse_db)
-    llm = VertexAIGeminiLLM()
-    return retriever, llm, True
+    flash_llm = VertexAIGeminiLLM(GEMINI_FLASH_MODEL)
+    pro_llm = VertexAIGeminiLLM(GEMINI_PRO_MODEL)
+    return retriever, (flash_llm, pro_llm), True
 
-def verify_or_rebuild_rag(status_callback=None) -> Tuple[ContextExpandingHybridRetriever, VertexAIGeminiLLM, Dict[str, Any]]:
+def verify_or_rebuild_rag(status_callback=None) -> Tuple[ContextExpandingHybridRetriever, Tuple[VertexAIGeminiLLM, VertexAIGeminiLLM], Dict[str, Any]]:
     fine_db, coarse_db, manifest, rebuilt = verify_or_rebuild_vectorstores(status_callback=status_callback)
     retriever = ContextExpandingHybridRetriever(fine_db, coarse_db)
-    llm = VertexAIGeminiLLM()
-    return retriever, llm, {
+    flash_llm = VertexAIGeminiLLM(GEMINI_FLASH_MODEL)
+    pro_llm = VertexAIGeminiLLM(GEMINI_PRO_MODEL)
+    return retriever, (flash_llm, pro_llm), {
         "rebuilt": rebuilt,
         "manifest": manifest
     }
 
 # ─── 8. Query processing function for API ────────────────────────────────────
-def process_query(query: str, retriever, llm, conversation_history, debug_mode: bool = False, status_callback=None):
+def process_query(query: str, retriever, llms, conversation_history, debug_mode: bool = False, status_callback=None):
     """Process a single query and return response with optional debug info"""
+    flash_llm, pro_llm = llms
 
     # Vagueness / clarification branch.
     # A query is treated as a contextual follow-up only when there is prior history to
@@ -989,7 +1007,7 @@ Follow-up question: {question}
 
 Reformulated question (be specific and include context from the conversation):"""
         )
-        reformulation_chain = reformulation_prompt | llm | StrOutputParser()
+        reformulation_chain = reformulation_prompt | flash_llm | StrOutputParser()
         
         history_context = conversation_history.get_conversation_context()
         reformulated_q = reformulation_chain.invoke({
@@ -1121,13 +1139,44 @@ Reformulated question (be specific and include context from the conversation):""
                 "preview": d.page_content[:100].replace('\n', ' ')
             })
     
+    # ── Citation map ──────────────────────────────────────────────────────────
+    # Assign a stable citation number to each unique (source, page) among the
+    # retrieved docs. The same numbers are (a) embedded in the context the LLM
+    # sees so it can cite them inline as [n], and (b) returned as `citations` so
+    # the frontend can turn each [n] into a clickable reference.
+    citation_map: Dict[Tuple[Optional[str], Optional[int]], int] = {}
+    citations: List[Dict[str, Any]] = []
+    for d in docs:
+        key = (d.metadata.get("source"), d.metadata.get("page"))
+        if key not in citation_map:
+            number = len(citations) + 1
+            citation_map[key] = number
+            citations.append({
+                "number": number,
+                "filename": d.metadata.get("source"),
+                "doc_type": d.metadata.get("doc_type"),
+                "page": d.metadata.get("page"),
+            })
+
+    def format_docs_with_citations(docs):
+        if not docs:
+            return "No relevant context found."
+        blocks = []
+        for doc in docs:
+            n = citation_map[(doc.metadata.get("source"), doc.metadata.get("page"))]
+            src = doc.metadata.get("source")
+            page = doc.metadata.get("page")
+            blocks.append(f"[{n}] (Source: {src}, page {page})\n{doc.page_content}")
+        return "\n\n---\n\n".join(blocks)
+
     def format_docs(docs):
         if not docs:
             return "No relevant context found."
         return "\n\n---\n\n".join(doc.page_content for doc in docs)
-    
-    # Format the context strings
-    context_str = format_docs(docs)
+
+    # Format the context strings. The current context carries [n] labels for
+    # inline citation; previous context is supplementary and stays unlabeled.
+    context_str = format_docs_with_citations(docs)
     previous_context_str = format_docs(previous_chunks) if previous_chunks else "None"
     
     # Debug logging to check context
@@ -1147,8 +1196,19 @@ Reformulated question (be specific and include context from the conversation):""
     # Create prompt template without f-string formatting to preserve template variables.
     # The generic prompt is the ablation baseline (USE_DOMAIN_PROMPT=False); production
     # uses the domain-specific prompt below.
+    # Each chunk in Current Context is prefixed with a citation marker like
+    # "[2] (Source: ..., page N)". The model is asked to reuse those numbers as
+    # inline citations so answers are traceable to specific source chunks.
+    citation_rules = """
+Citation rules:
+- Every factual claim MUST end with an inline citation using the bracketed number(s) of the Current Context chunk(s) it came from, e.g. "The base temperature is 1.6 K [2]."
+- Place the citation immediately after the sentence or clause it supports. Cite multiple chunks when a claim draws on several, e.g. "[1][3]".
+- Only use numbers that appear in the Current Context. Never invent a citation number, and do not cite the Previous Context.
+- Do not add a separate reference list at the end; the interface renders one from your inline markers."""
+
     if not USE_DOMAIN_PROMPT:
         system_message = """You are a helpful assistant. Answer the user's question using the provided context.
+""" + citation_rules + """
 
 Current Context:
 {context}
@@ -1168,6 +1228,7 @@ Rules:
 - If the retrieved context does not contain enough information to answer fully, say so explicitly rather than guessing.
 - For questions about email communications (documents starting with "UHD"), summarize the relevant technical content from the retrieved text.
 - Always use the retrieved context as your source of truth. Do not rely on any information not present in the context, even if it seems like common knowledge. If the context does not contain the answer, claim ignorance and say you don't know.
+""" + citation_rules + """
 
 Current Context:
 {context}
@@ -1182,7 +1243,7 @@ Previous Context (if relevant):
     ])
     
     # Create the chain with direct input
-    rag_chain = prompt | llm | StrOutputParser()
+    rag_chain = prompt | pro_llm | StrOutputParser()
     
     # Debug: Show what's being sent to the LLM
     input_data = {
@@ -1207,34 +1268,18 @@ Previous Context (if relevant):
     
     print(f"DEBUG: LLM Response: {answer[:200]}...")
     
-    # Get sources with document type information
-    sources = []
-    for d in docs:
-        source_info = {
-            "filename": d.metadata.get("source"),
-            "doc_type": d.metadata.get("doc_type"),
-            "page": d.metadata.get("page")
-        }
-        if source_info not in sources:
-            sources.append(source_info)
-    
-    if previous_chunks:
-        for d in previous_chunks:
-            source_info = {
-                "filename": d.metadata.get("source"),
-                "doc_type": d.metadata.get("doc_type"),
-                "page": d.metadata.get("page")
-            }
-            if source_info not in sources:
-                sources.append(source_info)
-    
+    # Sources are the numbered citation list, so the "References" panel lines up
+    # exactly with the inline [n] markers in the answer.
+    sources = citations
+
     # Update conversation history
     conversation_history.add_user_message(query)
     conversation_history.add_ai_message(answer)
-    
+
     return {
         "answer": answer,
         "sources": sources,
+        "citations": citations,
         "images": images,
         "debug_info": debug_info,
         "needs_clarification": False,

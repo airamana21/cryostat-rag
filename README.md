@@ -13,6 +13,7 @@ The **Cryostat AI Support Chatbot** is an intelligent chatbot designed to provid
 ### 📄 **Advanced PDF Processing**
 - **Multi-Modal Content Extraction**: Extracts and processes both text and images from PDF documentation
 - **Image Integration**: Displays relevant diagrams, schematics, and visual aids alongside text responses
+- **Inline Citations**: Answers carry numbered `[n]` markers linked to the exact source chunk; a matching, page-anchored References list renders below each response
 - **Source Attribution**: Provides precise citations with document names, page numbers, and document types
 
 ### 🔍 **Enhanced Search Capabilities**
@@ -37,7 +38,7 @@ The **Cryostat AI Support Chatbot** is an intelligent chatbot designed to provid
 - **Backend**: Python-based RAG system using LangChain and Google Vertex AI
 - **Vector Database**: ChromaDB for efficient semantic search and retrieval
 - **Cloud Infrastructure**: Deployed on Google Cloud Run with Cloud Storage integration
-- **AI Models**: Google Gemini for language generation and Vertex AI for embeddings
+- **AI Models**: Google Gemini 3.6 Flash (generation) and text-embedding-005 (embeddings), via the Google Gen AI SDK (`google-genai`) on the Vertex AI backend
 
 ## How to run locally:
 This app was built on a Windows system and is made to run locally on a Windows system for local development testing. Therefore setting up a Windows environment is necessary to run the `run_local.bat` batch file. Set up file system as shown below, the GCS bucket is necessary to retrieve PDFs. Then run the command below in project directory.

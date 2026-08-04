@@ -406,6 +406,47 @@
             color: #5f6368;
         }
 
+        /* Inline citation superscripts, e.g. "... 1.6 K [2]" */
+        .citation {
+            font-size: 0.72em;
+            line-height: 0;
+            vertical-align: super;
+            margin: 0 1px;
+        }
+
+        .citation a {
+            display: inline-block;
+            min-width: 15px;
+            padding: 0 4px;
+            color: #1a73e8;
+            background-color: #e8f0fe;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .citation a:hover {
+            background-color: #1a73e8;
+            color: #fff;
+        }
+
+        /* Numbered marker in the References list */
+        .citation-marker {
+            flex: 0 0 auto;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1a73e8;
+            background-color: #e8f0fe;
+            border-radius: 9px;
+        }
+
         .pdf-link {
             color: #1a73e8;
             text-decoration: none;
@@ -1047,6 +1088,34 @@
             }
         }
 
+        function escapeAttr(str) {
+            return String(str == null ? '' : str)
+                .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        // Replace inline [n] markers in rendered HTML with clickable citation
+        // superscripts that link to the source PDF (jumping to the cited page).
+        function linkCitations(html, sources) {
+            const byNumber = {};
+            sources.forEach(s => {
+                if (s && typeof s === 'object' && s.number != null) byNumber[s.number] = s;
+            });
+            if (Object.keys(byNumber).length === 0) return html;
+
+            return html.replace(/\[(\d+)\]/g, function(match, num) {
+                const src = byNumber[num];
+                if (!src) return match;  // not a known citation → leave untouched
+                const label = `${src.filename} (${src.doc_type}, p.${src.page})`;
+                const title = escapeAttr(label);
+                if (src.filename && String(src.filename).endsWith('.pdf')) {
+                    const href = `/pdf/${encodeURIComponent(src.filename)}#page=${src.page}`;
+                    return `<sup class="citation"><a href="${href}" target="_blank" title="${title}">${num}</a></sup>`;
+                }
+                return `<sup class="citation" title="${title}">${num}</sup>`;
+            });
+        }
+
         function addMessage(content, type, sources = null, images = null, debugInfo = null) {
             const chatContainer = document.getElementById('chatContainer');
             const previousScrollHeight = chatContainer.scrollHeight;
@@ -1062,7 +1131,11 @@
             
             if (type === 'bot') {
                 // For bot messages, parse markdown and handle formatting
-                const formattedContent = parseMarkdown(content);
+                let formattedContent = parseMarkdown(content);
+                // Turn inline [n] markers into clickable citation superscripts.
+                if (sources && sources.length > 0) {
+                    formattedContent = linkCitations(formattedContent, sources);
+                }
                 contentDiv.innerHTML = formattedContent;
             } else {
                 // For user messages, simple line break handling
@@ -1075,33 +1148,40 @@
                 sourcesDiv.className = 'sources';
                 
                 const sourcesLabel = document.createElement('div');
-                sourcesLabel.textContent = 'Sources:';
+                sourcesLabel.textContent = 'References:';
                 sourcesLabel.style.marginBottom = '8px';
                 sourcesLabel.style.fontWeight = '500';
                 sourcesDiv.appendChild(sourcesLabel);
-                
+
                 const sourcesList = document.createElement('div');
                 sourcesList.className = 'sources-list';
-                
-                sources.forEach(source => {
+
+                sources.forEach((source, idx) => {
                     const sourceItem = document.createElement('div');
                     sourceItem.className = 'source-item';
-                    
+
                     const sourceText = document.createElement('span');
                     sourceText.className = 'source-text';
-                    
+
                     if (typeof source === 'object') {
+                        // Numbered marker matches the inline [n] citations above.
+                        const num = source.number != null ? source.number : (idx + 1);
+                        const marker = document.createElement('span');
+                        marker.className = 'citation-marker';
+                        marker.textContent = num;
+                        sourceItem.appendChild(marker);
+
                         sourceText.textContent = `${source.filename} (${source.doc_type}, p.${source.page})`;
-                        
-                        // Add PDF link if filename ends with .pdf
+
+                        // Add PDF link if filename ends with .pdf (jump to the cited page)
                         if (source.filename && source.filename.endsWith('.pdf')) {
                             const pdfLink = document.createElement('a');
-                            pdfLink.href = `/pdf/${source.filename}`;
+                            pdfLink.href = `/pdf/${encodeURIComponent(source.filename)}#page=${source.page}`;
                             pdfLink.target = '_blank';
                             pdfLink.className = 'pdf-link';
                             pdfLink.textContent = 'View PDF';
                             pdfLink.title = `Open ${source.filename}`;
-                            
+
                             sourceItem.appendChild(sourceText);
                             sourceItem.appendChild(pdfLink);
                         } else {
@@ -1111,7 +1191,7 @@
                         sourceText.textContent = source;
                         sourceItem.appendChild(sourceText);
                     }
-                    
+
                     sourcesList.appendChild(sourceItem);
                 });
                 

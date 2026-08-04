@@ -8,3 +8,4 @@ venv/
 evaluation/
 .eval_data/
 eval/
+data/
